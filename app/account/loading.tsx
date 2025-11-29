@@ -4,10 +4,7 @@ import Loader from "@/global/components/Loader";
 
 export default function Loading() {
     return (
-        <div className="nass__page__loader">
-            <h3>Loading account informations</h3>
-            <Loader loading={true} />
-        </div>
+            <Loader loading={true} title="Loading account informations" message="Fetching data from Naflows..." />
     );
 }
 

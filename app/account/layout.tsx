@@ -13,7 +13,13 @@ import '@/public/root/index.scss';
 import '@/public/root/pages/account/index.scss';
 
 
-const AccountContext = createContext(null);
+const AccountContext = createContext<{
+  userFetch: any;
+  setUserFetch: React.Dispatch<React.SetStateAction<any>>;
+  servicesFetch: any[];
+  setServicesFetch: React.Dispatch<React.SetStateAction<any[]>>;
+  selectedTab: string | undefined;
+} | null>(null);
 
 export const useAccountData = () => {
   const context = useContext(AccountContext);
@@ -74,28 +80,6 @@ export default function AccountLayout({ children } : { children: React.ReactNode
     }
   }, [pathname]);
 
-  // Fetch tab-specific data when tab changes
-  useEffect(() => {
-    const fetchTabData = async () => {
-      if (!selectedTab || !userFetch) return;
-
-      try {
-        // Fetch services data when on services tab
-        if (selectedTab === "services") {
-          const res = await fetchData(dir.services.val);
-          if (res.data.success !== false) {
-            setServicesFetch(res.data.services);
-          }
-        }
-        
-        // Add other tab-specific fetches here as needed
-      } catch (error) {
-        console.error(`Error fetching ${selectedTab} data:`, error);
-      }
-    };
-
-    fetchTabData();
-  }, [selectedTab, userFetch]);
 
   // Show loader while fetching initial data
   if (loading || !userFetch) {
@@ -110,12 +94,14 @@ export default function AccountLayout({ children } : { children: React.ReactNode
     setServicesFetch,
     selectedTab,
   };
+
   return (
     <AccountContext.Provider value={contextValue}>
-      <AccountHeader userFetch={userFetch} selectedTab={selectedTab} />
-      {children}
+      <AccountHeader userFetch={userFetch} selectedTab={selectedTab || "profile"} />
+      {userFetch && children}
     </AccountContext.Provider>
   );
+
 }
 
 

@@ -7,6 +7,7 @@ body {
   color: $_2k25-text;
   display: flex;
   justify-content: center;
+  align-items: start;
 
   h1 {
     text-transform: uppercase;
@@ -38,10 +39,10 @@ body {
 }
 
 .nass__page__loader {
-  width: 20%;
-  height: fit-content;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
   margin: auto;
-  padding: 0 50px 20px 50px;
   background-color: $_2k25-background-hue-darker;
   border-radius: 20px;
   display: flex;
@@ -53,7 +54,28 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  height: fit-content;
+  gap: 20px;
+  img {
+    width:50px;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    p {
+      font-size: 13px;
+      opacity: 0.8;
+      margin: 0;
+    }
+    h3 {
+      margin: 0;
+      color: $da-secondary-hue-lighter-2;
+    }
+  }
+  .naflows__button__loader {
+    max-width: 30%;
+  }
 }
 
 .global__nass__disclaimer {
@@ -249,7 +271,7 @@ textarea {
     label {
       position: absolute;
       top: 0;
-      bottom:0;
+      bottom: 0;
       margin: auto;
       left: 10px;
       transition: all 0.2s;

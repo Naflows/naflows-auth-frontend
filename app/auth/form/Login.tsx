@@ -41,7 +41,7 @@ const LoginForm = ({
   return (
     <>
       <Alert alert={alert} setAlert={setAlert} />
-
+      {loading && <Loader loading={loading} title="Logging in" message="Please wait while we log you in..." />}
       <div className="inputs-container">
         <div className="global__input__container two-columns">
           <div className="inputs-container global__input">
@@ -85,6 +85,7 @@ const LoginForm = ({
         <button
           className="primary-button text-size-20 width-100-auto"
           onClick={async () => {
+            
             await manageLogin(setLoading, setAlert, redirectOnSuccess);
           }}
           ref={loginRef}
@@ -97,7 +98,6 @@ const LoginForm = ({
             Log in
           </span>
 
-          <Loader loading={loading} />
         </button>
         <span className="separator">Or</span>
         <button className="secondary-button  text-size-20 width-100-auto" onClick={() => {

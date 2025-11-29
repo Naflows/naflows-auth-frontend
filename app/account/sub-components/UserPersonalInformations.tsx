@@ -60,7 +60,7 @@ const UserPersonalInformations = ({
               </div>
             </div>
           </div>
-          <Notifications userData={userData} />
+          {/* <Notifications userData={userData} /> */}
 
         </div>
         <div className="user__body__section">

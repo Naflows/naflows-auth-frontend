@@ -72,8 +72,8 @@ body {
   gap: 20px;
   width: fit-content;
   justify-content: start;
-  margin: auto;
   display: flex;
+  
   width: calc(100% - #{$nass__header_width + 100px}) !important;
   padding-left: $nass__header_width + 20px;
   padding-right: 50px;

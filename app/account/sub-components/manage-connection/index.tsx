@@ -3,8 +3,8 @@ import type { ServicesCompleteBodyProps } from "../../../../types/ServicesComple
 import UsageDataCards from "../core/connections/UsageDataCards";
 import type { InformationKey } from "../core/connections/PersonalDataInformation";
 import { dataPreferences, type DataKeys } from "../core/connections/PersonalInformations";
-import ServiceDescription from "../../../services/manage/sub-component/ServiceDescription";
 import { useHandleResize } from "./methods/useHandleResize";
+import ServiceDescription from "@/app/account/services/components/service-description";
 
 
 type SensitiveDataKeys = "ACCOUNT SECURITY MEASURES" | "BILLING DETAILS";

@@ -194,6 +194,11 @@
         &:hover {
           .user__header__visual__hover {
             display: flex;
+            button {
+                          min-width: calc(100%) !important;
+                          align-self: stretch;
+            background-color: red;
+            }
           }
         }
         display: flex;
