@@ -1,0 +1,115 @@
+@import "@/public/root/variables.scss";
+
+.panel {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: start;
+  max-width: 40%;
+
+  .panel-body,
+  .panel-footer {
+    background-color: $_2k25-background-hue-darker;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 20px;
+    width: calc(100% - 100px);
+  }
+  .panel-body {
+    align-items: start;
+    padding: 50px 50px;
+  }
+
+  .panel-footer {
+    padding: 20px 20px;
+    width: calc(100% - 40px);
+    gap: 50px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    .service__status__small {
+      width: fit-content;
+      min-height: fit-content;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      .service__status__indicator {
+        border: 1px solid $_2k25-text;
+        padding: 5px 10px;
+        width: fit-content;
+        border-radius: 5px;
+        font-size: 12px;
+        text-align: center;
+        &.service__status__indicator--active {
+          background-color: $da-confirm-hue-transparent;
+          border-color: $da-confirm-hue;
+          color: $da-confirm-hue;
+        }
+        &.service__status__indicator--inactive {
+          background-color: $da-error-hue-transparent;
+          border-color: $da-error-hue;
+          color: $da-error-hue;
+        }
+      }
+    }
+    h5 {
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+    .footer-buttons-container {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+  }
+
+  .buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+    .separator {
+      font-size: 14px;
+      opacity: 0.7;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .logo {
+    margin-right: auto !important;
+    width: auto !important;
+  }
+
+  .panel-header {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+
+    h2,
+    h1,
+    p {
+      margin: 0;
+      padding: 0;
+    }
+
+    h2 {
+      font-size: 15px;
+    }
+  }
+
+  &.panel-image-only {
+    padding: 20px 50px;
+  }
+
+  .panel-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+}
