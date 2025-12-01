@@ -178,7 +178,7 @@ textarea {
   min-height: 100px;
   max-height: 300px;
   height: fit-content;
-  font-family: "Nunito", monospace;
+  font-family: "Nunito", sans-serif;
   font-size: 16px;
   background-color: $_2k25-background-hue-darker;
   border: 1px solid $_2k25-background-hue-40 !important;
@@ -284,7 +284,8 @@ textarea {
       color: $da-secondary-hue-lighter-2;
 
       &.textarea-label {
-        top: 15px;
+        top: 5px !important;
+        margin: unset !important;
       }
     }
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../public/root/components/NotificationContainer.scss';
+import '@/public/root/components/NotificationContainer.scss';
 import ActionInformation from './ActionInformation';
 import { useNotification } from './NotificationContent';
 

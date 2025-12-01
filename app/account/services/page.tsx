@@ -1,4 +1,6 @@
 "use client";
+import '@/public/root/pages/services/create/index.scss';
+
 import "@/public/root/pages/account/sub-components/AccountServicesBody.scss";
 import { ServicesBodyProps } from "@/types/ServicesBodyProps";
 import { ServicesCompleteBodyProps } from "@/types/ServicesCompleteProps";
@@ -22,10 +24,11 @@ export default function ServicesInitPage() {
     // Fetch services once user is loaded
     useEffect(() => {
         if (!userFetch || !userFetch.id) {
+            console.log("User data not available yet.");
             return;
         }
 
-        let ignore = false; // ADD THIS LINE
+        let ignore = false; 
         const controller = new AbortController();
 
         const fetchServices = async () => {
@@ -78,7 +81,7 @@ export default function ServicesInitPage() {
     }, [servicesType, searchQuery, userServices, userConnections]);
 
     return (
-        <div className="user__body__services nass__page">
+        <div className="user__body__services">
             {loading && (
                 <Loader 
                     loading={loading} 
@@ -118,7 +121,7 @@ export default function ServicesInitPage() {
                         <button
                             className="primary-button"
                             onClick={() => {
-                                window.location.href = "/services/new";
+                                window.location.href = "/account/services/new";
                             }}
                             style={{
                                 width: 'fit-content',

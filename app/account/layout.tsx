@@ -11,6 +11,8 @@ import AccountHeader from './account-header/AccountHeader';
 
 import '@/public/root/index.scss';
 import '@/public/root/pages/account/index.scss';
+import { NotificationProvider } from '@/global/action-information/NotificationContent';
+import NotificationContainer from '@/global/action-information/NotificationContainer';
 
 
 const AccountContext = createContext<{
@@ -29,10 +31,10 @@ export const useAccountData = () => {
   return context;
 };
 
-export default function AccountLayout({ children } : { children: React.ReactNode }) {
+export default function AccountLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  
+
   const [userFetch, setUserFetch] = useState(undefined);
   const [servicesFetch, setServicesFetch] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -51,7 +53,7 @@ export default function AccountLayout({ children } : { children: React.ReactNode
     const fetchUserData = async () => {
       try {
         const userData = await fetchData("user");
-        
+
         if (userData.data.success === false) {
           router.push(`/auth?redirect=${pathname}`);
           console.error("Failed to fetch user info", userData.data);
@@ -73,7 +75,7 @@ export default function AccountLayout({ children } : { children: React.ReactNode
   useEffect(() => {
     const pathParts = pathname.split("/");
     const tab = pathParts[2] || "profile";
-    
+
     if (tab && Object.keys(dir).includes(tab)) {
       setSelectedTab(tab);
       document.title = `Account - ${tab.charAt(0).toUpperCase() + tab.slice(1)}`;
@@ -97,8 +99,13 @@ export default function AccountLayout({ children } : { children: React.ReactNode
 
   return (
     <AccountContext.Provider value={contextValue}>
-      <AccountHeader userFetch={userFetch} selectedTab={selectedTab || "profile"} />
-      {userFetch && children}
+      <NotificationProvider>
+        <AccountHeader userFetch={userFetch} selectedTab={selectedTab || "profile"} />
+        <div className="nass__page">
+          {userFetch && children}
+        </div>
+        <NotificationContainer />
+      </NotificationProvider>
     </AccountContext.Provider>
   );
 

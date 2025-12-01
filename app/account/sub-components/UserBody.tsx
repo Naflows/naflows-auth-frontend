@@ -44,7 +44,7 @@ const AccountUserBody = ({
 
 
     return (
-      <div className="nass__account__page_user__body nass__page" style={{
+      <div className="nass__account__page_user__body" style={{
         
       }}>
         <Alert alert={alert} setAlert={setAlert} />

@@ -1,6 +1,6 @@
 import type { JSX } from "react"
-import type { ServicesForUserProps } from "../../../../types/ServicesForUserProps"
-import type { accountTabs } from "../ManageService"
+import { ServicesCompleteBodyProps } from "@/types/ServicesCompleteProps"
+import { accountTabs } from "@/types/ServiceManagement"
 
 
 const svgValues: Record<accountTabs, JSX.Element> = {
@@ -37,19 +37,25 @@ const svgValues: Record<accountTabs, JSX.Element> = {
 
 }
 
-const AccountDir = ({ service, tab, title, description, setTab }: {
-    service: ServicesForUserProps,
+const AccountDir = ({ service, tab, title, description }: {
+    service: ServicesCompleteBodyProps | null,
     tab: accountTabs,
     title: string,
-    description: string,
-    setTab: (tab: accountTabs) => void
+    description: string
 }) => {
+
+    if (!service) {
+        return null;
+    }
+
     return (
         <div className="service__management__header">
             <div className="service__management__dir">
                 <a href="/account/services" className="service__management__dir__link">Services</a>
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M504-480 348-636q-11-11-11-28t11-28q11-11 28-11t28 11l184 184q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13L404-268q-11 11-28 11t-28-11q-11-11-11-28t11-28l156-156Z" /></svg>
-                <a onClick={() => setTab("overview")}
+                <a onClick={() => {
+                    window.location.href = `/account/services/manage/${service.id}`
+                }}
                     className="service__management__dir__link">{service.name}</a>
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M504-480 348-636q-11-11-11-28t11-28q11-11 28-11t28 11l184 184q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13L404-268q-11 11-28 11t-28-11q-11-11-11-28t11-28l156-156Z" /></svg>                    <span className="service__management__dir__current">{tab.charAt(0).toUpperCase() + tab.slice(1)}</span>
             </div>

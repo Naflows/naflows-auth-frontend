@@ -1,12 +1,10 @@
+import { ServiceConfigurationProps } from "@/types/ServiceCreation";
 import axios from "axios";
-import type { ServiceConfigurationProps } from "../../../pages/services/create/sub-components/configuration";
-import type { AlertContentProps } from "../../../types/AlertContentProps.type";
 
 
 export const createServiceToNass = ({
     serviceDescription,
-    serviceConfiguration,
-    setDisplayAlert
+    serviceConfiguration
 }: {
     serviceDescription: {
         name: string;
@@ -17,7 +15,6 @@ export const createServiceToNass = ({
         id: string;
     },
     serviceConfiguration: ServiceConfigurationProps,
-    setDisplayAlert: React.Dispatch<React.SetStateAction<AlertContentProps>>;
 }) => {
     const create = axios.post(`${process.env.NEXT_PUBLIC_DUMMY_API_URL_DEV}/set-user-info/services/create`, {
         details: {
@@ -39,26 +36,10 @@ export const createServiceToNass = ({
     create.then((res) => {
         console.log(res);
         if (res.status === 200) {
-            setDisplayAlert({
-                status: 200,
-                message: "Service created successfully! You will be redirected to the service page shortly.",
-                success: true,
-                closeAlert: false,
-                displayCode: false,
-                title: "Service Created"
-            });
             setTimeout(() => {
                 window.location.href = `/services/manage/${serviceDescription.id}`;
             }, 5000);
         }
     }).catch((err) => {
-        setDisplayAlert({
-            status: err.response?.status || 500,
-            message: err.response?.data?.message || "An error occurred while creating the service.",
-            success: false,
-            closeAlert: false,
-            displayCode: true,
-            title: "Service Creation Failed"
-        });
     });
 }

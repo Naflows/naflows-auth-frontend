@@ -37,7 +37,7 @@ const Notifications = ({
 
                     <div className="notifications__list">
                         {
-                            onLoad && <Loader loading={onLoad} />
+                            onLoad && <Loader loading={onLoad}  />
                         }
                         {userNotifications.length === 0 && (
                             <span style={{

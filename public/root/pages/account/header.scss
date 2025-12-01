@@ -1,4 +1,4 @@
-@import '@/public/root/variables.scss';
+@import "@/public/root/variables.scss";
 
 .nass__account__page__header {
   display: flex;
@@ -195,9 +195,8 @@
           .user__header__visual__hover {
             display: flex;
             button {
-                          min-width: calc(100%) !important;
-                          align-self: stretch;
-            background-color: red;
+              min-width: calc(100%) !important;
+              align-self: stretch;
             }
           }
         }
