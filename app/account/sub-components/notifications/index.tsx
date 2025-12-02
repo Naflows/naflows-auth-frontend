@@ -37,7 +37,7 @@ const Notifications = ({
 
                     <div className="notifications__list">
                         {
-                            onLoad && <Loader loading={onLoad}  />
+                            <Loader loading={onLoad} title="Loading notifications..." message="Please wait while the notifications are being loaded." />
                         }
                         {userNotifications.length === 0 && (
                             <span style={{

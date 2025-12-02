@@ -18,6 +18,7 @@ import NotificationContainer from "@/global/action-information/NotificationConta
 const ServiceDataContext = createContext<{
     service: ServicesCompleteBodyProps | null;
     tab: ServiceOverviewTabs;
+    setService?: React.Dispatch<React.SetStateAction<ServicesCompleteBodyProps | null>>;
 } | null>(null);
 
 export function useServiceData() {

@@ -26,23 +26,25 @@ const Loader = ({
     return () => clearInterval(interval);
   }, [loading]);
 
-  return (
-    <div className="nass__page__loader">
-      <img src="https://naflows.com/public/assets/naflows_small_logotype.png" alt="Loading..." className="loader__image" />
-      <div className="content">
-        {title && <h3>{title}{dots}</h3>}
-        {message && <p>{message}</p>}
+  if (loading) {
+    return (
+      <div className="nass__page__loader">
+        <img src="https://naflows.com/public/assets/naflows_small_logotype.png" alt="Loading..." className="loader__image" />
+        <div className="content">
+          {title && <h3>{title}{dots}</h3>}
+          {message && <p>{message}</p>}
+        </div>
+        <div
+          className="naflows__button__loader"
+          style={{
+            display: loading ? "block" : "none",
+          }}
+        >
+          <div className="naflows__button__loader__content"></div>
+        </div>
       </div>
-      <div
-        className="naflows__button__loader"
-        style={{
-          display: loading ? "block" : "none",
-        }}
-      >
-        <div className="naflows__button__loader__content"></div>
-      </div>
-    </div>
-  );
+    );
+  }
 };
 
 
