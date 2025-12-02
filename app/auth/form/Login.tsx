@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 const LoginForm = ({
   redirectOnSuccess = "/account",
 }: {
-  redirectOnSuccess?: string;
+  redirectOnSuccess?: string | undefined;
 }) => {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<AlertContentProps>({

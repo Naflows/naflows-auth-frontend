@@ -9,11 +9,32 @@ import RegisterForm from "./form/Register";
 import '@/public/root/auth.scss';
 import '@/public/root/index.scss';
 import LoginForm from "./form/Login";
+import { redirect } from "next/dist/server/api-utils";
+import { getPublicServiceInformations } from "@/scripts/pages/services/get/get-public-infos";
 
 
 interface AppLoginBigButtonProps {
     onClick: () => void;
     value: string;
+}
+
+
+async function formatRedirect(redirectUrl: string | undefined) {
+    if (!redirectUrl) return "/";
+    // account/services/manage/ regex -> fetch the * in account/services/manage/*/...
+    const regex = /account\/services\/manage\/([a-zA-Z0-9-_]+)/;
+    const match = redirectUrl.match(regex);
+    if (match && match[1]) {
+        console.log("Trying to fetch service info for redirect:", match[1]);
+        const data = await getPublicServiceInformations(match[1], null);
+        console.log("Fetched service info for redirect:", data);
+        if (data) {
+            return `${data.name}'s Service Dashboard`;
+        } else {
+            return "/account/services";
+        }
+    }
+    return "/";
 }
 
 const AppLoginBigButton = ({ onClick, value }: AppLoginBigButtonProps) => {
@@ -26,13 +47,11 @@ const AppLoginBigButton = ({ onClick, value }: AppLoginBigButtonProps) => {
 
 export default function AuthPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
     // React.use()
-    const { form, reason, red } = use(searchParams);
+    const { form, reason, redirect } = use(searchParams);
 
     const formType = form === "register" ? "register" : "login";
     const logoutReason = reason as string | undefined;
-    const redirect = red as string | undefined;
-
-
+    const redirectReason = redirect as string | undefined;
     useEffect(() => {
         const newUrl = new URL(window.location.href);
         newUrl.searchParams.set("form", formType);
@@ -55,10 +74,21 @@ export default function AuthPage({ searchParams }: { searchParams: Promise<{ [ke
         return () => clearInterval(intervalId);
     }, []);
 
+    const [serviceInfo, setServiceInfo] = useState<string>("");
+
+    useEffect(() => {
+        const fetchServiceInfo = async () => {
+            const info = await formatRedirect(redirectReason);
+            setServiceInfo(info);
+        };
+
+        fetchServiceInfo();
+    }, [redirectReason]);
+
     return (
         <div className="col-20 global__nass__form">
             <div className="panel" style={{
-                marginTop: (logoutReason != '' || red != '') ? "10px" : "80px",
+                marginTop: (logoutReason != '' || redirectReason != '') ? "10px" : "80px",
             }}>
                 <div className="disclaimers__container">
                     {
@@ -76,7 +106,7 @@ export default function AuthPage({ searchParams }: { searchParams: Promise<{ [ke
                         />
                     }
                     {
-                        redirect && <GlobalDisclaimer
+                        redirectReason && <GlobalDisclaimer
                             allowHidden={true}
                             title={`This login will redirect you`}
                             message={""}
@@ -84,7 +114,7 @@ export default function AuthPage({ searchParams }: { searchParams: Promise<{ [ke
                             fixed={false}
                             content={<>
                                 <p>
-                                    Once logged in, you will be redirected to {redirect}. If you wish to log in to your account dashboard, please use <a href="/account">https://auth.naflows.com/account</a> instead.
+                                    Once logged in, you will be redirected to <b>{serviceInfo}</b>. If you wish to log in to your account dashboard, please use <a href="/account">https://auth.naflows.com/account</a> instead.
                                 </p>
                             </>}
                         />
@@ -110,7 +140,7 @@ export default function AuthPage({ searchParams }: { searchParams: Promise<{ [ke
                         </p>
                     </div>
                     <div className="form">
-                        {formType === "login" ? <LoginForm redirectOnSuccess={redirect} /> : <RegisterForm />}
+                        {formType === "login" ? <LoginForm redirectOnSuccess={redirectReason} /> : <RegisterForm />}
                     </div>
                 </div>
                 <div className="panel-footer">

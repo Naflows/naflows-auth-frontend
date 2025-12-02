@@ -7,6 +7,7 @@ import LatestLogs from "./components/overview/components/latest-logs";
 import ServiceRightsComponentGlobal from "./components/overview/components/users/rights";
 import ServiceNetwork from "./components/overview/components/network";
 import ServiceUsers from "./components/overview/components/users";
+import Safety from "./components/overview/components/safety";
 
 
 export default function ManageServicePage() {
@@ -38,6 +39,8 @@ export default function ManageServicePage() {
             )
         case "users":
             return <ServiceUsers service={service} />;
+        case "safety":
+            return <Safety service={service} />;
     }
 
     return (
