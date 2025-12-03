@@ -14,7 +14,7 @@ const CompactServiceDescription = ({
             <div className="service__compact__description" onClick={() => {
                 if (owned) {
                     // Go to ./services/manage/[id]
-                    window.location.href = `/account/services/manage/${service.id}`;
+                    window.location.href = `/account/services/manage/${service.id}/overview`;
                 } else {
                     window.location.href = `/account/services/${service.id}`;
                 }

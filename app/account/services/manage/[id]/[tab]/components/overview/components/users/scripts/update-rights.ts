@@ -1,5 +1,5 @@
+import { ServiceRights } from "@/types/TunnelingTypes";
 import axios from "axios";
-import type { ServiceRights } from "../../../../../../../../types/TunnelingTypes";
 
 
 

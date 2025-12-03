@@ -6,11 +6,13 @@ import { useEffect, useState } from 'react';
 const Loader = ({
   loading,
   title,
-  message
+  message,
+  responsive = false
 }: {
   loading: boolean,
   title?: string,
-  message?: string
+  message?: string,
+  responsive?: boolea
 }) => {
 
   // Loop that goes from "." to "..." for the loading message
@@ -28,7 +30,7 @@ const Loader = ({
 
   if (loading) {
     return (
-      <div className="nass__page__loader">
+      <div className={`nass__page__loader ${responsive ? 'responsive' : ''}`}>
         <img src="https://naflows.com/public/assets/naflows_small_logotype.png" alt="Loading..." className="loader__image" />
         <div className="content">
           {title && <h3>{title}{dots}</h3>}

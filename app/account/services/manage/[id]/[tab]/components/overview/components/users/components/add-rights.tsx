@@ -7,6 +7,8 @@ import { useNotification } from "@/global/action-information/NotificationContent
 import { ServiceRights } from "@/types/TunnelingTypes";
 import Loader from "@/global/components/Loader";
 
+
+
 const AddUserRight = ({
     service,
     type,
@@ -78,10 +80,7 @@ const AddUserRight = ({
         <div className="add-rights__container">
             <div className="add-rights__content">
                 <div className="rights__section">
-
-                    {load && (
-                        <Loader loading={true} title="Loading rights..." message="Please wait while the rights are being loaded." />
-                    )}
+                    <Loader loading={load} title="Loading rights..." message="Please wait while the rights are being loaded." responsive={true} />
 
                     {!load && origin.length === 0 ? (
                         <p className="no-rights__message">
@@ -111,6 +110,9 @@ const AddUserRight = ({
                     //   id : right.id,
                     //   update_type : "ADD" | "REMOVE"
                     //}
+                    console.log("Original rights:", original);
+                    console.log("Current rights:", current);
+
                     const IDs: { type: "SERVICE_BY_NASS" | "TUNNELING_BY_INSTANCE", id: string, update_type: "ADD" | "REMOVE" }[] = [
                         ...current.map(r => ({
                             type: r.type,

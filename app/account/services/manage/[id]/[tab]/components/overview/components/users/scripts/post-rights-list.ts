@@ -3,6 +3,7 @@ import axios from "axios";
 
 export async function postRightsList(userID : string, serviceID : string, rightsIDs : {type: "SERVICE_BY_NASS" | "TUNNELING_BY_INSTANCE", id: string, update_type: "ADD" | "REMOVE"}[]) : Promise<{ success: boolean; message?: string }> {
     // Logic to post the updated rights list for the user
+    console.log("Posting rights list:", rightsIDs);
     try {
         axios.post(`${process.env.NEXT_PUBLIC_DUMMY_API_URL_DEV}/user/secure/service/rights/assign`, {
             rightsIDs: rightsIDs,

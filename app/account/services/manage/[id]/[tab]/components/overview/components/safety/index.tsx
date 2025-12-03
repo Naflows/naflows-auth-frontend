@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { getApiKey } from "./methods/fetchServiceAPIKey";
+import { useEffect, useState } from "react";
 import { ServicesForUserProps } from "@/types/ServicesForUserProps";
+import { getApiKeyFromBackend } from "@/scripts/pages/services/dev/getApiKey";
+
 
 
 
@@ -10,7 +11,19 @@ export const Safety = ({
     service: null | ServicesForUserProps;
 }) => {
     const [onLoadApiKeyGet, setOnLoadApiKeyGet] = useState<boolean>(false);
+    const [loadingContent, setLoadingContent] = useState<string>("Loading.");
 
+    useEffect(() => {
+        if (onLoadApiKeyGet) {
+            // Show "Loading.", "Loading..", "Loading..." animation
+            let dotCount = 1;
+            const interval = setInterval(() => {
+                dotCount = (dotCount + 1) % 4;
+                setLoadingContent("Loading" + ".".repeat(dotCount));
+            }, 500);
+            return () => clearInterval(interval);
+        }
+    }, [onLoadApiKeyGet])
 
     return (
         <>
@@ -40,17 +53,14 @@ export const Safety = ({
                                 <p>This API key is used to authenticate requests to the service. Keep it secure and do not share it publicly.</p>
                             </div>
                             <div className="buttons-container col-20">
-                                <button className="secondary-button width-100-auto" >Regenerate API Key</button>
+                                <button className="secondary-button width-100-auto inactive" >Regenerate API Key</button>
                                 <button className={`primary-button width-100-auto ${onLoadApiKeyGet ? "inactive" : ""}`} onClick={async () => {
-                                    setOnLoadApiKeyGet(true);
-                                    const key = await getApiKey(service?.id || "");
-                                    console.log("Fetched API Key:", key);
-                                    if (key) {
-                                        navigator.clipboard.writeText(key);
-                                    }
-                                    setOnLoadApiKeyGet(false);
+                                    await getApiKeyFromBackend(service?.id || "", {
+                                        running: (loading: boolean) => setOnLoadApiKeyGet(loading),
+                                        content: (content: string) => setLoadingContent(content),
+                                    });
                                 }}>
-                                    {onLoadApiKeyGet ? "Loading" : "Get & Copy"}
+                                    {onLoadApiKeyGet ? loadingContent : "Get & Copy"}
 
                                 </button>
                             </div>
@@ -61,10 +71,10 @@ export const Safety = ({
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M444-360h72q9 0 15.5-7.5T536-384l-19-105q20-10 31.5-29t11.5-42q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 23 11.5 42t31.5 29l-19 105q-2 9 4.5 16.5T444-360Zm36 276q-7 0-13-1t-12-3q-135-45-215-166.5T160-516v-189q0-25 14.5-45t37.5-29l240-90q14-5 28-5t28 5l240 90q23 9 37.5 29t14.5 45v189q0 140-80 261.5T505-88q-6 2-12 3t-13 1Z" /></svg>
                                     <span>Your Access Key</span>
                                 </h3>
-                                <p>This key is yours to use for accessing the service's API. Keep it secure and do not share it publicly.</p>
+                                <p>This key is yours to use for accessing the service&apos;s API. Keep it secure and do not share it publicly.</p>
                             </div>
                             <div className="buttons-container">
-                                <button className="secondary-button width-100-auto">Regenerate Access Key</button>
+                                <button className="secondary-button width-100-auto inactive">Regenerate Access Key</button>
                                 <button className="primary-button width-100-auto" onClick={() => navigator.clipboard.writeText(service?.details.access_key || "")}>Copy</button>
                             </div>
                         </div>
