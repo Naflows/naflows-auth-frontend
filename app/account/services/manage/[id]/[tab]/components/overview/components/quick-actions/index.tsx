@@ -24,6 +24,9 @@ const QuickActions = ({
         closeAlert: true
     });
     const [displayLoader, setDisplayLoader] = useState<boolean>(false);
+    const canManageService =
+        service && service.user_authorizations && service.user_authorizations["MANAGE_SERVICE"] ? true : false
+        ;
 
     if (service) {
         return (
@@ -37,13 +40,17 @@ const QuickActions = ({
                             <span className={`service__activity__text  ${service?.status == "ACTIVE" ? "ACTIVE" : "INACTIVE"}`}>
                                 {service?.status === "ACTIVE" ? "Connected to the NASS" : "Disconnected from the NASS"}
                             </span>
-                            <button className={`width-fit ${service?.status === "ACTIVE" ? "secondary-button" : "primary-button"}`} disabled={!service} onClick={() => {
-                                StartService({ service: service, setAlert: setAlert, setService: setService!, displayLoader: displayLoader, setDisplayLoader: setDisplayLoader});
+                            <button className={`width-fit ${service?.status === "ACTIVE" ? "secondary-button" : "primary-button"} ${
+                                !canManageService ? "inactive" : ""
+                            }`} disabled={!service} onClick={() => {
+                                StartService({ service: service, setAlert: setAlert, setService: setService!, displayLoader: displayLoader, setDisplayLoader: setDisplayLoader });
                             }}>
                                 {
                                     service?.status === "ACTIVE" ? <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M240-320v-320q0-33 23.5-56.5T320-720h320q33 0 56.5 23.5T720-640v320q0 33-23.5 56.5T640-240H320q-33 0-56.5-23.5T240-320Z" /></svg> : <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M320-200v-560l440 280-440 280Z" /></svg>
                                 }
-                                <span>
+                                <span style={{
+                                    display : canManageService ? "inline" : "none"
+                                }}>
                                     {service?.status === "ACTIVE" ? "Stop Service" : "Start Service"}
                                 </span>
                             </button>

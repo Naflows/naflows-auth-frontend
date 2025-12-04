@@ -980,7 +980,13 @@
     min-height: auto !important;
     flex: unset !important;
     flex-direction: column;
+    .service__description__header {
+      position: unset !important;
+    }
 
+    .official-badge {
+      top:0px !important;
+    }
     .service__status {
       min-height: fit-content;
 
