@@ -5,6 +5,7 @@ import NassRightsList from "../sub-components/nass-rights-list";
 import { ServiceRights } from "@/types/TunnelingTypes";
 import { ServicesForUserProps } from "@/types/ServicesForUserProps";
 import { useNotification } from "@/global/action-information/NotificationContent";
+import { dateToTimespan } from "@/scripts/utils/dateToTimespan";
 
 
 
@@ -344,7 +345,7 @@ const EditRightRight = ({
                                                 {tunnel.target_url}
                                             </span>
                                             <div className="timespan">
-                                                <span>Updated {createdAtToAgo(tunnel.updated_at)}</span>
+                                                <span>Updated {dateToTimespan(tunnel.updated_at)}</span>
                                             </div>
                                         </div>
                                     )

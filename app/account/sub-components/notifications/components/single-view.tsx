@@ -1,5 +1,5 @@
+import { dateToTimespan } from "@/scripts/utils/dateToTimespan";
 import type { FrontendNotification } from "../../../../../types/Notification.type";
-import { createdAtToAgo } from "../methods/createdAtToAgo";
 import { notifications } from "../methods/dir";
 import { notificationSVGPerType } from "../types/svg.type";
 
@@ -24,7 +24,7 @@ const NotificationSingleView = ({
                 <div className="notification__item__header">
                     <span className="notification__item__title">{notification.title}</span>
                     <span className="notification__item__date">{
-                        createdAtToAgo(notification.created_at)
+                        dateToTimespan(notification.created_at)
                     }</span>
                 </div>
             </div>

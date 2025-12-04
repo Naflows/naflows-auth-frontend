@@ -937,10 +937,15 @@ button * {
 
 /* ------------------------------- */
 .row-20 {
-  display: flex;
-  flex-direction: row;
   gap: 20px;
-  flex-wrap: wrap;
+}
+.row-5 {
+  gap: 5px;
+}
+.row-5, .row-20 {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap !important;
 }
 .width-fit {
   width: fit-content !important;
@@ -950,9 +955,15 @@ button * {
 }
 
 .col-20 {
-  display: flex;
-  flex-direction: column;
   gap: 20px;
+}
+.col-5 {
+  gap: 5px !important;
+}
+.col-5, .col-20 {
+  align-items: center;
+  display: flex;
+  flex-direction: column !important;
 }
 
 .width-35 {

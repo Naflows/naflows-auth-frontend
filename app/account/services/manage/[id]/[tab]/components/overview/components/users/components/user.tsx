@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import AddUserRight from "./add-rights";
 import ServiceRights from "./small-right";
 import { ServicesForUserProps, ServiceUser } from "@/types/ServicesForUserProps";
-import { createdAtToAgo } from "@/app/account/sub-components/notifications/methods/createdAtToAgo";
 import CopyButton from "@/global/components/CopyButton";
+import { dateToTimespan } from "@/scripts/utils/dateToTimespan";
 
 
 
@@ -112,8 +112,8 @@ const UserActions = ({ user }: { user: ServiceUser }) => {
     return (
         <div className="user__additional__content">
             <div className="user__item__dates">
-                <span className="user__item__joined">Joined: {createdAtToAgo(user.joined_on)}</span>
-                <span className="user__item__last-updated">Last Updated: {createdAtToAgo(user.last_updated)}</span>
+                <span className="user__item__joined">Joined: {dateToTimespan(user.joined_on)}</span>
+                <span className="user__item__last-updated">Last Updated: {dateToTimespan(user.last_updated)}</span>
             </div>
 
             <div className="user__actions">

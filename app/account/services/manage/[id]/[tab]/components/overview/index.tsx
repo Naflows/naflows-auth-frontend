@@ -1,8 +1,9 @@
 import { ServicesForUserProps } from "@/types/ServicesForUserProps";
 import QuickActions from "./components/quick-actions"
-import ServiceDescription from "@/app/account/services/components/service-description";
+import ServiceLoosenedView from "@/app/account/services/components/loosened.view";
 import ServiceCapacities from "./components/sub-component/capacities";
 import ServiceAlerts from "./components/sub-component/alerts";
+import SecurityMeasures from "@/app/account/services/components/security-measures";
 
 
 const ManageServiceOverview = ({
@@ -26,7 +27,7 @@ const ManageServiceOverview = ({
                 >
                     <div className="global__content">
                         <div className="parent__of__section row__layout" id="left-side">
-                            <ServiceDescription service={service} />
+                            <ServiceLoosenedView service={service} />
                         </div>
 
                         <div className="parent__of__section row__layout" id="right-side">
@@ -39,7 +40,6 @@ const ManageServiceOverview = ({
                         </div>
                     </div>
 
-                    {/* <SecurityMeasures service={service} /> */}
 
 
                 </div>

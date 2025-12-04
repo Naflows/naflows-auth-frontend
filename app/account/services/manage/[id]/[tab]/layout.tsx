@@ -2,7 +2,6 @@
 import { use, useEffect, useState, createContext, useContext } from "react";
 import { useAccountData } from "@/app/account/layout";
 import canUserAccessService from "@/scripts/pages/services/user/can-access";
-import AccountDir from "../../../components/ServiceDir";
 import fetchServiceData from "@/scripts/account/fetch-individual-service";
 import { ServicesCompleteBodyProps } from "@/types/ServicesCompleteProps";
 import { dirValues, SERVICE_OVERVIEW_TABS, ServiceOverviewTabs } from "@/types/ServiceManagement";
@@ -14,6 +13,7 @@ import '@/public/root/pages/services/manage/index.scss';
 import { AxiosError } from "axios";
 import { NotificationProvider } from "@/global/action-information/NotificationContent";
 import NotificationContainer from "@/global/action-information/NotificationContainer";
+import AccountDirectory from "../../../components/service-directory";
 
 const ServiceDataContext = createContext<{
     service: ServicesCompleteBodyProps | null;
@@ -111,7 +111,7 @@ export default function ServiceManagementPage({
                                 </button>
                             ))}
                         </div>
-                        <AccountDir service={serviceData} tab={tab} title={dirValues[tab]?.title || "Service Management"} description={dirValues[tab]?.description || ""} />
+                        <AccountDirectory service={serviceData} tab={tab} title={dirValues[tab]?.title || "Service Management"} description={dirValues[tab]?.description || ""} />
                         {children}
                     </div>
                 </div>

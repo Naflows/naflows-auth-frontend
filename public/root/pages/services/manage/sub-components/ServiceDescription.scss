@@ -26,7 +26,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    position:relative;
+    position: relative;
     overflow: hidden;
     padding-bottom: 15px;
 
@@ -120,6 +120,7 @@
 
       .service__description__header__content {
         padding: 40px 15px 0 15px;
+        width: 100%;
       }
       .service__description__pseudo__image {
         position: absolute;
@@ -151,23 +152,23 @@
     }
   }
 }
-
+.service__description__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  min-width: 100%;
+  h2,
+  p {
+    margin: 0;
+    padding: 0;
+  }
+}
 .service__description__name {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 100%;
-  .service__description__head {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 5px;
-    h2,
-    p {
-      margin: 0;
-      padding: 0;
-    }
-  }
+  min-width: 100%;
   h2 {
     margin: 0;
     padding: 0;
@@ -267,30 +268,30 @@
     }
   }
 }
-  .official-badge {
-    background-color: $da-secondary-hue-transparent-darker;
-    color: $da-secondary-hue-lighter-3;
-    
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-    border: 1px solid $da-secondary-hue;
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.official-badge {
+  background-color: $da-secondary-hue-transparent-darker;
+  color: $da-secondary-hue-lighter-3;
 
-    backdrop-filter: blur(10px);
-    gap: 5px;
-    svg {
-      height: 16px;
-      width: 16px;
-      fill: $da-secondary-hue-lighter-2;
-      color: $da-secondary-hue-lighter-2;
-    }
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  border: 1px solid $da-secondary-hue;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  backdrop-filter: blur(10px);
+  gap: 5px;
+  svg {
+    height: 16px;
+    width: 16px;
+    fill: $da-secondary-hue-lighter-2;
+    color: $da-secondary-hue-lighter-2;
   }
+}
 .service__description__details {
   display: flex;
   flex-direction: row;
@@ -298,6 +299,10 @@
   column-gap: 10px;
   row-gap: 5px;
   flex-wrap: wrap;
+  padding-bottom: 15px;
+  border-bottom: 1px solid $_2k25-background-hue-50-transparent;
+  width: 100%;
+
   span {
     width: fit-content;
     display: flex;

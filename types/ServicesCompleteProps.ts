@@ -32,7 +32,8 @@ export interface ServicesCompleteBodyProps {
             first_name?: string;
             last_name?: string;
         }
-    }, public: {
+    }, 
+    public: {
         privacy_policy_url?: string;
         terms_of_service_url?: string;
         contact_email?: string;

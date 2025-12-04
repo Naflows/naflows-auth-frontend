@@ -141,6 +141,9 @@
       flex-direction: column;
       align-items: start;
       gap: 5px;
+      .service__description__details__container {
+        width: 100%;
+      }
       h2, p {
         margin: 0;
         padding: 0;

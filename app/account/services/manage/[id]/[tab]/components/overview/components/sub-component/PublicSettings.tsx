@@ -1,4 +1,4 @@
-import "@/public/root/pages/services/manage/sub-components/ServiceDescription.scss";
+import "@/public/root/pages/services/manage/sub-components/ServiceLoosenedView.scss";
 import { ServicesForUserProps } from "@/types/ServicesForUserProps";
 
 

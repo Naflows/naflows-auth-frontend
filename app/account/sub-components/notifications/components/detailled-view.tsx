@@ -1,5 +1,5 @@
+import { dateToTimespan } from "@/scripts/utils/dateToTimespan"
 import type { FrontendNotification } from "../../../../../types/Notification.type"
-import { createdAtToAgo } from "../methods/createdAtToAgo"
 import { notifications } from "../methods/dir"
 import { notificationSVGPerType } from "../types/svg.type"
 
@@ -21,7 +21,7 @@ const NotificationDetailledView = ({
                         <div className="notification__detailed__view__header-container">
                             {notificationSVGPerType[viewNotification.type as keyof typeof notificationSVGPerType]}
                             <div className="notification__detailed__view__header">
-                                <span className="notification__detailed__view__date">{createdAtToAgo(viewNotification.created_at)}</span>
+                                <span className="notification__detailed__view__date">{dateToTimespan(viewNotification.created_at)}</span>
                                 <h3>{viewNotification.title}</h3>
                             </div>
                         </div>

@@ -4,7 +4,7 @@ import UsageDataCards from "../core/connections/UsageDataCards";
 import type { InformationKey } from "../core/connections/PersonalDataInformation";
 import { dataPreferences, type DataKeys } from "../core/connections/PersonalInformations";
 import { useHandleResize } from "./methods/useHandleResize";
-import ServiceDescription from "@/app/account/services/components/service-description";
+import ServiceLoosenedView from "@/app/account/services/components/loosened.view";
 
 
 type SensitiveDataKeys = "ACCOUNT SECURITY MEASURES" | "BILLING DETAILS";
@@ -103,7 +103,7 @@ const ManageServiceConnection = ({
                   <span>Back to services</span>
                 </button>
               </div>
-              <ServiceDescription service={service} publicDisplay={true} />
+              <ServiceLoosenedView service={service} publicDisplay={true} />
 
             </div>
 

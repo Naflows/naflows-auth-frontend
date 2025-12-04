@@ -51,9 +51,6 @@ const CompactServiceDescription = ({
                         <h2>
                             <span className="service__name">{service.name}</span>
                         </h2>
-                        <p>
-                            {service.description || "No description provided."}
-                        </p>
                         <div className="service__description__details__container">
                             <div className="service__description__details">
                                 <span>
@@ -73,6 +70,9 @@ const CompactServiceDescription = ({
                                 </span>
                             </div>
                         </div>
+                        <p>
+                            {service.description || "No description provided."}
+                        </p>
                     </div>
 
                 </div>

@@ -1,4 +1,4 @@
-import { hslToRgba } from "@/scripts/styling/hslToRgba";
+import { hslToRgba } from "@/scripts/utils/hslToRgba";
 import { Log } from "@/types/Logs.type";
 
 

@@ -1,5 +1,5 @@
 
-function createdAtToAgo(createdAt: number): string {
+function dateToTimespan(createdAt: number): string {
     const now = Date.now();
     const diff = now - createdAt;
 
@@ -15,4 +15,4 @@ function createdAtToAgo(createdAt: number): string {
 }
 
 
-export { createdAtToAgo };
+export { dateToTimespan };

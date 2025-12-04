@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import type { Filters } from "../../../../../../../../../types/Logs.type";
+import { useEffect, useRef, useState } from "react";
+import { Filters } from "@/types/Logs.type";
+import { getUsersByUsername } from "@/scripts/pages/services/user/get-by-username";
 
 
 const FilterLogs = ({
     filters, setFilters
 }: {
-    filters: Filters
+    filters: Filters;
     setFilters: React.Dispatch<React.SetStateAction<Filters>>;
 }) => {
     // Component code here
@@ -22,17 +22,12 @@ const FilterLogs = ({
     useEffect(() => {
         if (username.length > 3 && username !== filters.user) {
             async function fetchUsers(){
-                axios.get(`${process.env.NEXT_PUBLIC_DUMMY_API_URL_DEV}/public/user/${username}`, {
-                    withCredentials: false,
-                }).then((response) => {
-                    console.log("Fetched users for username filter:", response.data);
-                    setUserSuggestions(response.data.users);
-                }).catch((error) => {
-                    console.error("Error fetching users for username filter:", error);
-                });
+                const users = await getUsersByUsername(username);
+                console.log("Fetched users for username filter:", users);
+                setUserSuggestions(users);
             }
             fetchUsers();
-        } else if (username.length === 0) {
+        } else {
             setUserSuggestions([]);
             setFilters(prev => ({ ...prev, user: null }));
         }

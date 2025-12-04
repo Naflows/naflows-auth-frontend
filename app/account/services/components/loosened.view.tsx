@@ -1,19 +1,40 @@
-import "@/public/root/pages/services/manage/sub-components/ServiceDescription.scss";
-import { ServicesBodyProps } from "@/types/ServicesBodyProps";
 import { ServicesCompleteBodyProps } from "@/types/ServicesCompleteProps";
-import { ServicesForUserProps } from "@/types/ServicesForUserProps";
+import "@/public/root/pages/services/manage/sub-components/ServiceDescription.scss";
 
-const ServiceDescription = ({
+
+const LegalButton = ({
+  label,
+  url,
+  className
+}: {
+  label: string;
+  url: string;
+  className?: "primary-button" | "secondary-button";
+}) => {
+  return (
+    <button
+      className={`width-100-auto ${className} ${url? "" : "inactive"}`}
+      onClick={() => {
+        window.open(url || "https://www.naflows.com/support", "_blank");
+      }}
+    >
+      <span>{label}</span>
+    </button>
+  );
+};
+
+
+const ServiceLoosenedView = ({
   service,
   publicDisplay = false,
 }: {
-  service: ServicesForUserProps | ServicesBodyProps | ServicesCompleteBodyProps | null;
+  service: ServicesCompleteBodyProps | null;
   publicDisplay?: boolean;
   smallBody?: boolean;
   userManagement?: boolean;
   owned?: boolean;
 }) => {
-  console.log("Rendering ServiceDescription with service:", service);
+  console.log("Rendering ServiceLoosenedView with service:", service);
   if (service) {
     return (
 
@@ -72,8 +93,6 @@ const ServiceDescription = ({
                   <div className="service__description__content">
                     <p>{service.description || "No description provided."}</p>
                   </div>
-
-
                 </div>
               </div>
             </div>
@@ -95,26 +114,12 @@ const ServiceDescription = ({
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M504-480 348-636q-11-11-11-28t11-28q11-11 28-11t28 11l184 184q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13L404-268q-11 11-28 11t-28-11q-11-11-11-28t11-28l156-156Z" /></svg>
               </button>
             </div>
-            <div className="buttons-container" style={{
-              flexDirection: "column",
-              gap: "5px",
-              display: !publicDisplay ? "none" : "flex",
+            <div className="buttons-container col-5" style={{
+              display : publicDisplay ? "flex" : "none",
             }}>
-              <button className="primary-button width-100-auto" onClick={() => {
-                window.open(service?.public?.contact_email || "https://www.naflows.com/support", "_blank");
-              }}>
-                <span>Contact Service</span>
-              </button>
-              <button className="secondary-button width-100-auto" onClick={() => {
-                window.open(service?.public?.privacy_policy_url || "https://www.naflows.com/support", "_blank");
-              }}>
-                <span>Service Privacy Policy</span>
-              </button>
-              <button className="secondary-button width-100-auto" onClick={() => {
-                window.open(service?.public?.terms_of_service_url || "https://www.naflows.com/support", "_blank");
-              }}>
-                <span>Terms of Service</span>
-              </button>
+              <LegalButton label="Privacy Policy" url={service?.public?.privacy_policy_url || ""} className="primary-button" />
+              <LegalButton label="Terms of service" url={service?.public?.terms_of_service_url || ""} className="primary-button" />
+              <LegalButton label="Contact" url={service?.public?.contact_email || ""} className="secondary-button" />
             </div>
 
           </div>
@@ -126,4 +131,4 @@ const ServiceDescription = ({
   }
 };
 
-export default ServiceDescription;
+export default ServiceLoosenedView;

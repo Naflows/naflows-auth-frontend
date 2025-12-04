@@ -1,9 +1,9 @@
-import "@/public/root/pages/services/manage/sub-components/ServiceDescription.scss";
+import "@/public/root/pages/services/manage/sub-components/ServiceLoosenedView.scss";
 import { ServicesBodyProps } from "@/types/ServicesBodyProps";
 import { ServicesCompleteBodyProps } from "@/types/ServicesCompleteProps";
 import { ServicesForUserProps } from "@/types/ServicesForUserProps";
 
-const ServiceDescription = ({
+const ServiceLoosenedView = ({
   service,
   publicDisplay = false,
 }: {
@@ -13,7 +13,7 @@ const ServiceDescription = ({
   userManagement?: boolean;
   owned?: boolean;
 }) => {
-  console.log("Rendering ServiceDescription with service:", service);
+  console.log("Rendering ServiceLoosenedView with service:", service);
   if (service) {
     return (
   
@@ -126,4 +126,4 @@ const ServiceDescription = ({
   }
 };
 
-export default ServiceDescription;
+export default ServiceLoosenedView;

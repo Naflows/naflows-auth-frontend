@@ -3,7 +3,7 @@
 import Loader from "@/global/components/Loader";
 import { useServiceData } from "./layout";
 import ManageServiceOverview from "./components/overview";
-import LatestLogs from "./components/overview/components/latest-logs";
+import LatestLogs from "./components/overview/components/logs";
 import ServiceRightsComponentGlobal from "./components/overview/components/users/rights";
 import ServiceNetwork from "./components/overview/components/network";
 import ServiceUsers from "./components/overview/components/users";
@@ -27,7 +27,7 @@ export default function ManageServicePage() {
             )
         case "logs" :
             return (
-                <LatestLogs service={service} />
+                <LatestLogs />
             )
         case "rights":
             return (
