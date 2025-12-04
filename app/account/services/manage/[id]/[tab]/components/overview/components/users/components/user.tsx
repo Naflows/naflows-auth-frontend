@@ -155,7 +155,6 @@ const ListedUser = ({ user, service }: { user: ServiceUser, service: ServicesFor
                 <div className="user__item__info">
                     <div className="profile__picture">
                         <img src={user.profile_picture} alt={user.username} className="user__item__avatar" />
-
                     </div>
                     <div className="item__info__header">
                         <span className="user__item__username">{user.username}</span>

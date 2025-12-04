@@ -156,6 +156,17 @@
   flex-direction: column;
   gap: 10px;
   width: 100%;
+  .service__description__head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    h2,
+    p {
+      margin: 0;
+      padding: 0;
+    }
+  }
   h2 {
     margin: 0;
     padding: 0;
@@ -263,6 +274,30 @@
   column-gap: 10px;
   row-gap: 5px;
   flex-wrap: wrap;
+  .official-badge {
+    background-color: $da-secondary-hue-transparent-darker;
+    color: $da-secondary-hue-lighter-3;
+    
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    border: 1px solid $da-secondary-hue;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    backdrop-filter: blur(10px);
+    gap: 5px;
+    svg {
+      height: 16px;
+      width: 16px;
+      fill: $da-secondary-hue-lighter-2;
+      color: $da-secondary-hue-lighter-2;
+    }
+  }
   span {
     width: fit-content;
     display: flex;

@@ -5,6 +5,7 @@ import EditRightRight from "./edit-right-set"
 import { ServicesForUserProps } from "@/types/ServicesForUserProps"
 import { ServiceRights } from "@/types/TunnelingTypes"
 import SaveChanges from "@/global/components/save"
+import { useAccountData } from "@/app/account/layout"
 
 
 
@@ -32,6 +33,7 @@ const ServiceSmallComponent = ({
     fullDisplayOn: ServiceRights | null;
     disabled?: boolean;
 }) => {
+
     return (
         <div
             key={right.id}
@@ -155,6 +157,8 @@ const ServiceRightsComponent = ({
     const [fullDisplayOriginal, setFullDisplayOriginal] = useState<ServiceRights | null>(null);
     const [rightChanged, setRightChanged] = useState<boolean>(false);
 
+    const { userFetch } = useAccountData();
+
     useEffect(() => {
         if (fullDisplay) {
             console.log("Setting full display original for:", fullDisplay.name);
@@ -219,7 +223,7 @@ const ServiceRightsComponent = ({
         }
     }
 
-    if (!service) return <></>
+    if (!service || !userFetch) return <></>
 
     return (
         <>

@@ -19,8 +19,11 @@ interface AppLoginBigButtonProps {
 }
 
 
-async function formatRedirect(redirectUrl: string | undefined) {
-    if (!redirectUrl) return "/";
+async function formatRedirect(redirectUrl: string | undefined): Promise<{
+    title: string;
+    isDashboard: boolean;
+}> {
+    if (!redirectUrl) return { title: "your dashboard", isDashboard: true };
     // account/services/manage/ regex -> fetch the * in account/services/manage/*/...
     const regex = /account\/services\/manage\/([a-zA-Z0-9-_]+)/;
     const match = redirectUrl.match(regex);
@@ -29,12 +32,12 @@ async function formatRedirect(redirectUrl: string | undefined) {
         const data = await getPublicServiceInformations(match[1], null);
         console.log("Fetched service info for redirect:", data);
         if (data) {
-            return `${data.name}'s Service Dashboard`;
+            return { title: `${data.name}'s Service Dashboard`, isDashboard: false };
         } else {
-            return "/account/services";
+            return { title: "/account/services", isDashboard: false };
         }
     }
-    return "/";
+    return { title: "your dashboard", isDashboard: true };
 }
 
 const AppLoginBigButton = ({ onClick, value }: AppLoginBigButtonProps) => {
@@ -74,7 +77,7 @@ export default function AuthPage({ searchParams }: { searchParams: Promise<{ [ke
         return () => clearInterval(intervalId);
     }, []);
 
-    const [serviceInfo, setServiceInfo] = useState<string>("");
+    const [serviceInfo, setServiceInfo] = useState<{ title: string; isDashboard: boolean }>({ title: "", isDashboard: false });
 
     useEffect(() => {
         const fetchServiceInfo = async () => {
@@ -114,7 +117,7 @@ export default function AuthPage({ searchParams }: { searchParams: Promise<{ [ke
                             fixed={false}
                             content={<>
                                 <p>
-                                    Once logged in, you will be redirected to <b>{serviceInfo}</b>. If you wish to log in to your account dashboard, please use <a href="/account">https://auth.naflows.com/account</a> instead.
+                                    Once logged in, you will be redirected to <b>{serviceInfo.title}</b>. {!serviceInfo.isDashboard && <>If you wish to log in to your account dashboard, please use <a href="/account">https://auth.naflows.com/account</a> instead.</>}
                                 </p>
                             </>}
                         />
@@ -145,14 +148,23 @@ export default function AuthPage({ searchParams }: { searchParams: Promise<{ [ke
                 </div>
                 <div className="panel-footer">
                     <div className="footer-left">
-                        <h5>
-                            {formType === "login"
-                                ? "Having trouble logging in?"
-                                : "Need help with registration?"}
-                        </h5>
-                        <div className="footer-buttons-container">
-                            <AppLoginBigButton onClick={() => { }} value="I forgot my password" />
-                            <AppLoginBigButton onClick={() => { }} value="I forgot my customer ID" />
+                        <div className="footer__part">
+                            <h5>
+                                {formType === "login"
+                                    ? "Having trouble logging in?"
+                                    : "Need help with registration?"}
+                            </h5>
+                            <div className="footer-buttons-container">
+                                <AppLoginBigButton onClick={() => { }} value="I forgot my password" />
+                                <AppLoginBigButton onClick={() => { }} value="I forgot my customer ID" />
+                            </div>
+                        </div>
+                        <div className="footer__part">
+                            <h5>Trouble understanding our system?</h5>
+                            <div className="footer-buttons-container">
+                                <AppLoginBigButton onClick={() => { window.location.href = "https://naflows.com/nass-sso"; }} value="Learn more about NASS SSO" />
+                                <AppLoginBigButton onClick={() => { window.location.href = "https://naflows.com/support"; }} value="Contact Support" />
+                            </div>
                         </div>
                     </div>
                     <div className="footer-right">
