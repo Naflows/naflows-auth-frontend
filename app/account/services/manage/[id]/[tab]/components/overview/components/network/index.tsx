@@ -1,7 +1,7 @@
 import '@/public/root/pages/services/manage/sub-components/Network.scss';
-import ServiceNetworkIdentity from "./components/identity";
+import ServiceNetworkIdentity from "./components/network-identity";
 import 'chartjs-adapter-date-fns';
-import TrafficOverview from "./components/traffic";
+import TrafficOverview from "./components/traffic-chart";
 import { ServicesForUserProps } from '@/types/ServicesForUserProps';
 import { ServicesCompleteBodyProps } from '@/types/ServicesCompleteProps';
 

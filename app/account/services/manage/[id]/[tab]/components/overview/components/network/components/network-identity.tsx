@@ -1,6 +1,19 @@
 import { ServicesCompleteBodyProps } from "@/types/ServicesCompleteProps";
 import { ServicesForUserProps } from "@/types/ServicesForUserProps";
 
+const IpAdressSvg = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+        <path d="M21.721 12.752a9.711 9.711 0 0 0-.945-5.003 12.754 12.754 0 0 1-4.339 2.708 18.991 18.991 0 0 1-.214 4.772 17.165 17.165 0 0 0 5.498-2.477ZM14.634 15.55a17.324 17.324 0 0 0 .332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 0 0 .332 4.647 17.385 17.385 0 0 0 5.268 0ZM9.772 17.119a18.963 18.963 0 0 0 4.456 0A17.182 17.182 0 0 1 12 21.724a17.18 17.18 0 0 1-2.228-4.605ZM7.777 15.23a18.87 18.87 0 0 1-.214-4.774 12.753 12.753 0 0 1-4.34-2.708 9.711 9.711 0 0 0-.944 5.004 17.165 17.165 0 0 0 5.498 2.477ZM21.356 14.752a9.765 9.765 0 0 1-7.478 6.817 18.64 18.64 0 0 0 1.988-4.718 18.627 18.627 0 0 0 5.49-2.098ZM2.644 14.752c1.682.971 3.53 1.688 5.49 2.099a18.64 18.64 0 0 0 1.988 4.718 9.765 9.765 0 0 1-7.478-6.816ZM13.878 2.43a9.755 9.755 0 0 1 6.116 3.986 11.267 11.267 0 0 1-3.746 2.504 18.63 18.63 0 0 0-2.37-6.49ZM12 2.276a17.152 17.152 0 0 1 2.805 7.121c-.897.23-1.837.353-2.805.353-.968 0-1.908-.122-2.805-.353A17.151 17.151 0 0 1 12 2.276ZM10.122 2.43a18.629 18.629 0 0 0-2.37 6.49 11.266 11.266 0 0 1-3.746-2.504 9.754 9.754 0 0 1 6.116-3.985Z" />
+    </svg>
+);
+
+const DnsSvg = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+        <path d="M5.507 4.048A3 3 0 0 1 7.785 3h8.43a3 3 0 0 1 2.278 1.048l1.722 2.008A4.533 4.533 0 0 0 19.5 6h-15c-.243 0-.482.02-.715.056l1.722-2.008Z" />
+        <path fillRule="evenodd" d="M1.5 10.5a3 3 0 0 1 3-3h15a3 3 0 1 1 0 6h-15a3 3 0 0 1-3-3Zm15 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm2.25.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM4.5 15a3 3 0 1 0 0 6h15a3 3 0 1 0 0-6h-15Zm11.25 3.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM19.5 18a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" clipRule="evenodd" />
+    </svg>
+
+)
 
 
 const ServiceNetworkIdentity = ({
@@ -17,13 +30,14 @@ const ServiceNetworkIdentity = ({
             <div className="network__components">
                 <div className="network__component">
                     <div className="network__component__header">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q10 0 22 .5t22 1.5q17 2 26 14t9 30q0 17-11 27.5t-28 8.5q-10-1-20-.5t-20 .5q-26 36-45 75.5T404-640h76q17 0 28.5 11.5T520-600q0 17-11.5 28.5T480-560h-94q-3 20-4.5 40t-1.5 40q0 20 1.5 40t4.5 40h188q3-20 4.5-40t1.5-40v-19q0-9-1-19-2-16 9.5-29t27.5-13q17 0 29 10t14 27q1 10 1 21.5v21.5q0 20-1.5 40t-4.5 40h136q5-20 7.5-40t2.5-40v-18q0-8-2-18-2-16 9-30t27-14q18 0 30 9.5t14 26.5q1 10 1.5 22t.5 22q0 83-31.5 156T763-197q-54 54-127 85.5T480-80ZM170-400h136q-3-20-4.5-40t-1.5-40q0-20 1.5-40t4.5-40H170q-5 20-7.5 40t-2.5 40q0 20 2.5 40t7.5 40Zm34-240h118q9-37 22.5-72.5T376-782q-55 18-99 54.5T204-640Zm496 0q-25 0-42.5-17.5T640-700v-120q0-25 17.5-42.5T700-880h120q25 0 42.5 17.5T880-820v120q0 25-17.5 42.5T820-640H700Zm80-120h40q8 0 14-6t6-14v-40q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14v40q0 8 6 14t14 6ZM376-178q-18-34-31.5-69.5T322-320H204q29 51 73 87.5t99 54.5Zm104 16q26-36 45-75.5t31-82.5H404q12 43 31 82.5t45 75.5Zm104-16q55-18 99-54.5t73-87.5H638q-9 37-22.5 72.5T584-178Z" /></svg>
+                        <IpAdressSvg />
+
                         <h4>IP Address</h4>
                     </div>
                     <div className="network__component__body">
                         <div className="information__container">
                             {
-                                service?.ip_addressy && service.ip_address.length > 0 ? service?.ip_address.map((ip) => (
+                                service?.ip_address && service.ip_address.length > 0 ? service?.ip_address.map((ip) => (
                                     <div className="component" key={ip}>
                                         <p className="network__component__value">{ip || "Not configured"}</p>
                                         <button className="primary-button">
@@ -33,14 +47,14 @@ const ServiceNetworkIdentity = ({
                                 )) : <p className="network__component__value">Not configured</p>
                             }
                         </div>
-                        <button className="primary-button width-100-auto">
+                        <button className="primary-button width-100-auto inactive">
                             Register new IP
                         </button>
                     </div>
                 </div>
                 <div className="network__component">
                     <div className="network__component__header">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M300-720q-25 0-42.5 17.5T240-660q0 25 17.5 42.5T300-600q25 0 42.5-17.5T360-660q0-25-17.5-42.5T300-720Zm0 400q-25 0-42.5 17.5T240-260q0 25 17.5 42.5T300-200q25 0 42.5-17.5T360-260q0-25-17.5-42.5T300-320ZM160-840h640q17 0 28.5 11.5T840-800v280q0 17-11.5 28.5T800-480H160q-17 0-28.5-11.5T120-520v-280q0-17 11.5-28.5T160-840Zm0 400h640q17 0 28.5 11.5T840-400v280q0 17-11.5 28.5T800-80H160q-17 0-28.5-11.5T120-120v-280q0-17 11.5-28.5T160-440Z" /></svg>
+                        <DnsSvg />
                         <h4>DNS Name</h4>
                     </div>
                     <div className="network__component__body">
@@ -49,15 +63,19 @@ const ServiceNetworkIdentity = ({
                                 <p className="network__component__value">{service?.dns || "Not configured"}</p>
                                 <button className="primary-button">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M160-120q-17 0-28.5-11.5T120-160v-97q0-16 6-30.5t17-25.5l505-504q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L313-143q-11 11-25.5 17t-30.5 6h-97Zm544-528 56-56-56-56-56 56 56 56Z" /></svg>
-                                </button></div>
+                                </button>
+                            </div>
                         </div>
+                        <button className="primary-button width-100-auto inactive">
+                            Register new DNS
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <p className="footer__informations">
+            <div className="footer__informations">
                 Looking for connection to the NASS? Make sure to check our <a href="https://docs.naflows.com/nass/getting-started/connecting-to-nass" target="_blank" rel="noreferrer">documentation</a> for detailed instructions on how to connect your service to the NASS securely and efficiently.
-            </p>
+            </div>
         </div>
     )
 }

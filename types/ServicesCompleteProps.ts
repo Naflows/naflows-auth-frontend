@@ -11,6 +11,7 @@ export interface ServicesCompleteBodyProps {
     created_at: number; // Date when the service was created
     created_by: string; // User ID of the user who created the service
     is_user_developer: boolean; // Whether the user is a developer of the service
+    ip_address: string[]; // List of IP addresses associated with the service
     data_preferences: {
         usage_data: "NONE" | "BASIC" | "FULL"; // Level of usage data the service can access
         personal_data: Array<"PHONE" | "EMAIL" | "FIRST AND LAST NAME" | "ADDRESS" | "BIRTHDATE" | "ACCOUNT SECURITY MEASURES" | "BILLING DETAILS">;
@@ -37,6 +38,11 @@ export interface ServicesCompleteBodyProps {
         privacy_policy_url?: string;
         terms_of_service_url?: string;
         contact_email?: string;
+    },
+    settings : {
+        rates: number; // Maximum requests per second allowed for the service
+        rate_limit_window: number; // Time window in seconds for rate limiting
+        developer_mode: boolean; // Whether developer mode is enabled for the service
     },
     user_authorizations?: Record<string, boolean>; // Map of user IDs to whether they are authorized developers for the service
 
