@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { fetchRights } from "../scripts/fetch-rights-list";
 import RightItemCheck from "./right-item-check";
 import { postRightsList } from "../scripts/post-rights-list";
 import { ServicesForUserProps, ServiceUser } from "@/types/ServicesForUserProps";
 import { useNotification } from "@/global/action-information/NotificationContent";
 import { ServiceRights } from "@/types/TunnelingTypes";
 import Loader from "@/global/components/Loader";
+import { fetchRights } from "@/scripts/pages/services/rights/fetch-rights";
 
 
 
@@ -41,26 +41,28 @@ const AddUserRight = ({
 
     useEffect(() => {
         if (loadServices && service) {
-            fetchRights(service.id, setLoad).then(({ nassRights, instanceRights }) => {
-                console.log("Fetched rights:", { nassRights, instanceRights });
+            (async () => {
+                await fetchRights(service.id, setLoad).then(({ nassRights, instanceRights }) => {
+                    console.log("Fetched rights:", { nassRights, instanceRights });
 
-                if (type === "SERVICE_BY_NASS") {
-                    setFiltered(nassRights.filter((n) => !currentRights.some(cr => cr.id === n.id)));
+                    if (type === "SERVICE_BY_NASS") {
+                        setFiltered(nassRights.filter((n) => !currentRights.some(cr => cr.id === n.id)));
 
 
-                    // Filter current based on type
-                    setCurrent(currentRights.filter((cr) => nassRights.some(n => n.id === cr.id)));
-                    setOriginal(currentRights.filter((cr) => nassRights.some(n => n.id === cr.id)));
-                    setAllRights(nassRights);
-                } else {
-                    setFiltered(instanceRights.filter((n) => !currentRights.some(cr => cr.id === n.id)));
-                    // Filter current based on type
-                    setCurrent(currentRights.filter((cr) => instanceRights.some(n => n.id === cr.id)));
-                    setOriginal(currentRights.filter((cr) => instanceRights.some(n => n.id === cr.id)));
-                    setAllRights(instanceRights);
-                }
-            });
-            setLoadServices(false);
+                        // Filter current based on type
+                        setCurrent(currentRights.filter((cr) => nassRights.some(n => n.id === cr.id)));
+                        setOriginal(currentRights.filter((cr) => nassRights.some(n => n.id === cr.id)));
+                        setAllRights(nassRights);
+                    } else {
+                        setFiltered(instanceRights.filter((n) => !currentRights.some(cr => cr.id === n.id)));
+                        // Filter current based on type
+                        setCurrent(currentRights.filter((cr) => instanceRights.some(n => n.id === cr.id)));
+                        setOriginal(currentRights.filter((cr) => instanceRights.some(n => n.id === cr.id)));
+                        setAllRights(instanceRights);
+                    }
+                });
+                setLoadServices(false);
+            })();
         }
     }, [service, loadServices, currentRights, type]);
 

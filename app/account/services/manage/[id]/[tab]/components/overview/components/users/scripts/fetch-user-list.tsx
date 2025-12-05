@@ -1,6 +1,6 @@
+import { ServiceUser } from "@/types/ServicesForUserProps";
 import axios from "axios";
 import { useEffect } from "react";
-import type { ServiceUser } from "../../../../../../../../types/ServicesForUserProps";
 
 
 const useFetchUserList = (serviceId: string, setUsers: (users: ServiceUser[]) => void, setLoading: (loading: boolean) => void, setErrorMessage: (message: string) => void) => {

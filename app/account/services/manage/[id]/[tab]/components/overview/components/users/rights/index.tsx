@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import ServiceRightsComponent from "./components/rights";
 import '@/public/root/pages/services/manage/sub-components/Rights.scss';
 import CreateRightSet from "./components/create-righet-set/create-right-set";
-import { fetchRights } from "../scripts/fetch-rights-list";
 import { ServicesForUserProps } from "@/types/ServicesForUserProps";
 import { ServiceRights } from "@/types/TunnelingTypes";
 import UnauthorizedAccess from "@/global/components/Unauthorized";
 import Loader from "@/global/components/Loader";
+import { fetchRights } from "@/scripts/pages/services/rights/fetch-rights";
 
 
 const ServiceRightsComponentGlobal = ({

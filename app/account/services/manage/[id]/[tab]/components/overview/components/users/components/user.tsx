@@ -25,8 +25,8 @@ const RightComponent = ({ rights, type, service, userInfo, setCurrentRights }: {
 
         if (element) {
             const rect = element.getBoundingClientRect();
-            setTop(`${rect.bottom + 2}px`);
-            setLeft(`${rect.left}px`);
+            setTop(`${rect.height + 20}px`);
+            setLeft(`calc(100% - ${rect.width}px)`);
         }
         setClicked(prev => !prev);
     };

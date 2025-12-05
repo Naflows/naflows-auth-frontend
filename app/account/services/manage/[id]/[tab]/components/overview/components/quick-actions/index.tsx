@@ -77,7 +77,6 @@ const QuickActions = ({
                         </button>
                     </div>
                 </div>
-
             </div>
         )
     }
