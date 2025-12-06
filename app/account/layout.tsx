@@ -13,13 +13,17 @@ import '@/public/root/index.scss';
 import '@/public/root/pages/account/index.scss';
 import { NotificationProvider } from '@/global/action-information/NotificationContent';
 import NotificationContainer from '@/global/action-information/NotificationContainer';
+import { UserBodyProps } from '@/types/UserBodyProps';
+import { getAllServices } from '@/scripts/pages/services/get/get-all';
+import { ServicesForUserProps } from '@/types/ServicesForUserProps';
 
 
 const AccountContext = createContext<{
-  userFetch: any;
-  setUserFetch: React.Dispatch<React.SetStateAction<any>>;
-  servicesFetch: any[];
-  setServicesFetch: React.Dispatch<React.SetStateAction<any[]>>;
+  userFetch: UserBodyProps;
+  setUserFetch: React.Dispatch<React.SetStateAction<UserBodyProps | undefined>>;
+  servicesFetch: ServicesForUserProps[];
+  setServicesFetch: React.Dispatch<React.SetStateAction<ServicesForUserProps[]>>;
+  servicesLoaded?: boolean;
   selectedTab: string | undefined;
 } | null>(null);
 
@@ -35,10 +39,11 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
   const pathname = usePathname();
   const router = useRouter();
 
-  const [userFetch, setUserFetch] = useState(undefined);
-  const [servicesFetch, setServicesFetch] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedTab, setSelectedTab] = useState();
+  const [userFetch, setUserFetch] = useState<UserBodyProps | undefined>(undefined);
+  const [servicesFetch, setServicesFetch] = useState<ServicesForUserProps[]>([]);
+  const [selectedTab, setSelectedTab] = useState<string | undefined>(undefined);
+  const [servicesLoaded, setServicesLoaded] = useState(false);
+  const [userLoading, setUserLoading] = useState(true);
 
   const dir = {
     profile: { val: "user" },
@@ -50,9 +55,12 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
 
   // Fetch user data on mount
   useEffect(() => {
+    let ignore = false;
+
     const fetchUserData = async () => {
       try {
         const userData = await fetchData("user");
+        if (ignore) return;
 
         if (userData.data.success === false) {
           router.push(`/auth?redirect=${pathname}`);
@@ -61,15 +69,58 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
         }
 
         setUserFetch(userData.data.user);
-        setLoading(false);
+        setUserLoading(false); // ✅ Don't wait for services
       } catch (error) {
-        console.error("Error fetching user info:", error);
-        router.push(`/auth?redirect=${pathname}`);
+        if (!ignore) {
+          console.error("Error fetching user info:", error);
+          router.push(`/auth?redirect=${pathname}`);
+        }
       }
     };
 
     fetchUserData();
+
+    return () => {
+      ignore = true;
+    };
   }, [pathname, router]);
+
+  useEffect(() => {
+    if (!userFetch?.id) return;
+
+    let ignore = false;
+    const controller = new AbortController();
+
+    const fetchServices = async () => {
+      try {
+        console.log("Starting services fetch...");
+        const serviceData = await getAllServices(controller.signal);
+        if (ignore) return;
+
+        if (serviceData.data.success === false) {
+          console.error("Failed to fetch services info", serviceData.data);
+          setServicesLoaded(true);
+          return;
+        }
+
+        console.log("Loaded service data:", serviceData.data.services);
+        setServicesFetch(serviceData.data.services || []);
+        setServicesLoaded(true);
+      } catch (error) {
+        if (!ignore && error instanceof Error && error.name !== 'CanceledError') {
+          console.error("Error fetching services:", error);
+          setServicesLoaded(true); // Mark as loaded even on error
+        }
+      }
+    };
+
+    fetchServices();
+
+    return () => {
+      ignore = true;
+      controller.abort();
+    };
+  }, [userFetch?.id]);
 
   // Update selected tab based on pathname
   useEffect(() => {
@@ -84,7 +135,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
 
 
   // Show loader while fetching initial data
-  if (loading || !userFetch) {
+  if (userLoading || !userFetch) {
     return (<></>);
   }
 
@@ -95,12 +146,13 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
     servicesFetch,
     setServicesFetch,
     selectedTab,
+    servicesLoaded,
   };
 
   return (
     <AccountContext.Provider value={contextValue}>
       <NotificationProvider>
-        <AccountHeader userFetch={userFetch} selectedTab={selectedTab || "profile"} />
+        <AccountHeader selectedTab={selectedTab || "profile"} />
         <div className="nass__page">
           {userFetch && children}
         </div>

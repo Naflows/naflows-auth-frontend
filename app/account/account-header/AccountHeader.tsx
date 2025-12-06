@@ -8,6 +8,9 @@ import AccountUserBodyProfilePicture from "../sub-components/ProfilePicture";
 
 
 import '@/public/root/pages/account/header.scss';
+import { ServicesBodyProps } from "@/types/ServicesBodyProps";
+import { getAllServices } from "@/scripts/pages/services/get/get-all";
+import { useAccountData } from "../layout";
 
 const icons = {
   "profile": {
@@ -43,151 +46,169 @@ const icons = {
 }
 
 const AccountHeader = ({
-  userFetch,
   selectedTab,
 }: {
-  userFetch: UserBodyProps | undefined;
   selectedTab: string;
 }) => {
   const [collapsed, setCollapsed] = useState(() => !!loadPreferenceFromLocalStorage("header-collapsed"));
   const headerRef = useRef<HTMLDivElement>(null);
-  const [headerWidth, setHeaderWidth] = useState(300);
-  const [pageLoaded, setPageLoaded] = useState(false);
-
-  function updateHeaderWidth() {
-    if (headerRef.current) {
-      setHeaderWidth(headerRef.current.offsetWidth);
-      console.log("Header width updated:", headerRef.current.offsetWidth);
-    }
-  }
-
-  useEffect(() => {
-    const nassPage = document.querySelector(".nass__page") as HTMLElement;
-    if (nassPage) {
-      console.log("Updating nass page padding:", headerWidth);
-      nassPage.style.paddingLeft = `${headerWidth + 50}px`;
-      nassPage.style.transition = "padding-left 0.3s ease-in-out";
-      // Update width to not cause layout shift
-      nassPage.style.width = `calc(100% - ${headerWidth + 50}px)`;
-    }
-  }, [headerWidth])
-
-  useEffect(() => {
-    setTimeout(() => {
-      updateHeaderWidth();
-    }, 300);
-    setTimeout(() => {
-      setPageLoaded(true);
-    }, 500);
-  }, []);
-
-  useSessionValid();
-
-  // On mount, set the initial header width
-  useEffect(() => {
-    if (headerRef.current) {
-      setHeaderWidth(headerRef.current.offsetWidth);
-      console.log("Initial header width set:", headerRef.current.offsetWidth);
-    }
-  }, [userFetch]);
-
-
-
-  useEffect(() => {
-    setPreferenceToLocalStorage("header-collapsed", collapsed ? "true" : "");
-  }, [collapsed, headerWidth]);
-
+  const { userFetch, servicesFetch, servicesLoaded } = useAccountData();
   const [displayMenu, setDisplayMenu] = useState(false);
 
+  // Single effect to handle header width and page padding
+  useEffect(() => {
+    if (!headerRef.current) return;
 
+    const updateLayout = () => {
+      const headerWidth = headerRef.current!.offsetWidth;
+      const nassPage = document.querySelector(".nass__page") as HTMLElement;
 
+      if (nassPage) {
+        nassPage.style.paddingLeft = `${headerWidth + 50}px`;
+        nassPage.style.width = `calc(100% - ${headerWidth + 50}px)`;
+      }
+    };
 
+    // Initial update
+    updateLayout();
 
-  if (userFetch) {
+    // Update after collapse animation (only when collapsed changes)
+    const timeoutId = setTimeout(updateLayout, 320);
 
-    return (
-      <div className={`nass__account__page__header ${collapsed ? "collapsed" : ""}`} ref={headerRef}>
-        <div className="header__tabs">
-          <img
-            src={
-              !collapsed ? "/assets/naflows-green.svg" : "/assets/naflows-logotype-round.svg"
-            }
-            alt="Naflows logo"
-            className="logo"
-          />
-          <div className="tabs">
-            {["Profile", "Services", "Security", "Billing", "Support"].map(
-              (tab) => (
-                <div
-                  key={tab}
-                  className={`${selectedTab === tab.toLowerCase() ? "primary-button" : "secondary-button"
-                    } width-100-auto header__tab ${icons[tab.toLowerCase() as keyof typeof icons].active ? "" : "inactive"}`}
-                  onClick={() => {
-                    window.location.href = icons[tab.toLowerCase() as keyof typeof icons].link;
-                  }}
-                >
-                  <div className="tab__content">
-                    {icons[tab.toLowerCase() as keyof typeof icons].icon}
-                    <span className="tab-label">{tab}</span>
-                  </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M504-480 348-636q-11-11-11-28t11-28q11-11 28-11t28 11l184 184q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13L404-268q-11 11-28 11t-28-11q-11-11-11-28t11-28l156-156Z" /></svg>
+    return () => clearTimeout(timeoutId);
+  }, [collapsed]); // Only run when collapsed state changes
+
+  // Save preference to localStorage
+  useEffect(() => {
+    setPreferenceToLocalStorage("header-collapsed", collapsed ? "true" : "");
+  }, [collapsed]);
+
+  if (!userFetch) return null;
+
+  return (
+    <div className={`nass__account__page__header ${collapsed ? "collapsed" : ""}`} ref={headerRef}>
+      <div className="header__tabs">
+        <img
+          src={!collapsed ? "/assets/naflows-green.svg" : "/assets/naflows-logotype-round.svg"}
+          alt="Naflows logo"
+          className="logo"
+        />
+        <div className="tabs">
+          {["Profile", "Services", "Security", "Billing", "Support"].map(
+            (tab) => (
+              <div
+                key={tab}
+                className={`${selectedTab === tab.toLowerCase() ? "primary-button" : "secondary-button"
+                  } width-100-auto header__tab ${icons[tab.toLowerCase() as keyof typeof icons].active ? "" : "inactive"}`}
+                onClick={() => {
+                  window.location.href = icons[tab.toLowerCase() as keyof typeof icons].link;
+                }}
+              >
+                <div className="tab__content">
+                  {icons[tab.toLowerCase() as keyof typeof icons].icon}
+                  <span className="tab-label">{tab}</span>
                 </div>
-              )
-            )}
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                  <path d="M504-480 348-636q-11-11-11-28t11-28q11-11 28-11t28 11l184 184q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13L404-268q-11 11-28 11t-28-11q-11-11-11-28t11-28l156-156Z" />
+                </svg>
+              </div>
+            )
+          )}
+        </div>
+      </div>
+
+
+      <div className="services__content">
+        <div className="services__list">
+          {!servicesLoaded ? (
+            <span className="small-loader"></span>
+          ) : (
+            servicesFetch.slice(0, collapsed ? 3 : servicesFetch.length).map((service) => (
+              <div
+                key={service.id}
+                className="service__item"
+                onClick={() => {
+                  window.location.href = `/account/services/manage/${service.id}/overview`;
+                }}
+                title={service.name}
+              >
+                <img
+                  src={service.picture}
+                  alt={`${service.name} icon`}
+                  className="service__icon"
+                  title={service.name}
+                />
+                <div className="name__hover">
+                  <div className="name__content">
+                    <span className="service__name">{service.name}</span>
+                    <span className="dns__text">{service.dns}</span>
+                  </div>
+                  <div className={`activity__status ${service.status == "ACTIVE" ? "active" : "inactive"}`}>
+
+                  </div>
+                </div>
+
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+
+      <div className="header__footer__content">
+        <div className="header__account">
+          <div
+            className="user__header__visual__access"
+            onMouseEnter={() => setDisplayMenu(true)}
+            onMouseLeave={() => setDisplayMenu(false)}
+          >
+            <div className="user__header__content">
+              <AccountUserBodyProfilePicture
+                profilePictureUrl={userFetch.profile_picture}
+                altText={`Profile picture of ${userFetch.username}`}
+              />
+              <div className="user__header__informations">
+                <h3 className="name">
+                  {userFetch.first_name} {userFetch.last_name}
+                </h3>
+                <p className="username">@{userFetch.username}</p>
+              </div>
+            </div>
+          </div>
+          <div className="footer__head">
+            <button
+              className="secondary-button"
+              onClick={() => setCollapsed(!collapsed)}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                <path d="m432-480 156 156q11 11 11 28t-11 28q-11 11-28 11t-28-11L348-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 28-11t28 11q11 11 11 28t-11 28L432-480Z" />
+              </svg>
+            </button>
+            <button
+              className="secondary-button width-100-auto"
+              id="logout-button"
+              onClick={async () => {
+                await axios.post(`${process.env.NEXT_PUBLIC_DUMMY_API_URL_DEV}/client/logout`, {}, { withCredentials: true });
+                window.location.href = "/auth";
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h240q17 0 28.5 11.5T480-800q0 17-11.5 28.5T440-760H200v560h240q17 0 28.5 11.5T480-160q0 17-11.5 28.5T440-120H200Zm487-320H400q-17 0-28.5-11.5T360-480q0-17 11.5-28.5T400-520h287l-75-75q-11-11-11-27t11-28q11-12 28-12.5t29 11.5l143 143q12 12 12 28t-12 28L669-309q-12 12-28.5 11.5T612-310q-11-12-10.5-28.5T613-366l74-74Z" />
+              </svg>
+              <span>Log Out</span>
+            </button>
           </div>
         </div>
-        <div className="header__footer__content">
-          <div className="header__account">
-            <button className="secondary-button" onClick={() => {
-              setCollapsed(!collapsed);
-              setTimeout(() => {
-                updateHeaderWidth();
-              }, 300); /// ????? Bad practice but it works
-            }}>
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m432-480 156 156q11 11 11 28t-11 28q-11 11-28 11t-28-11L348-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 28-11t28 11q11 11 11 28t-11 28L432-480Z" /></svg>
-            </button>
-            <div className="user__header__visual__access" onMouseEnter={() => {
-              setDisplayMenu(true);
-            }} onMouseLeave={() => {
-              setDisplayMenu(false);
-            }}>
-              <div className="user__header__visual__hover" style={{ display: displayMenu ? "flex" : "none" }}>
-                <button className="secondary-button width-100-auto" onClick={async () => {
-                  // Remove current cookies and redirect to login page
-                  setTimeout(() => {
-                    window.location.href = "/auth";
-                  }, 200);
-                  await axios.post(`${process.env.NEXT_PUBLIC_DUMMY_API_URL_DEV}/client/logout`, {}, { withCredentials: true });
-                }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h240q17 0 28.5 11.5T480-800q0 17-11.5 28.5T440-760H200v560h240q17 0 28.5 11.5T480-160q0 17-11.5 28.5T440-120H200Zm487-320H400q-17 0-28.5-11.5T360-480q0-17 11.5-28.5T400-520h287l-75-75q-11-11-11-27t11-28q11-12 28-12.5t29 11.5l143 143q12 12 12 28t-12 28L669-309q-12 12-28.5 11.5T612-310q-11-12-10.5-28.5T613-366l74-74Z" /></svg>
-                  <span>Log Out</span>
-                </button>
-              </div>
-              <div className="user__header__content">
-                <AccountUserBodyProfilePicture
-                  profilePictureUrl={userFetch.profile_picture}
-                  altText={`Profile picture of ${userFetch.username}`}
-                />
-                <div className="user__header__informations">
-                  <h3 className="name">
-                    {userFetch.first_name} {userFetch.last_name}
-                  </h3>
-                  <p className="username">@{userFetch.username}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="legal">
-            <p className="footer__text">© 2024 Naflows. All rights reserved.</p>
-            <div className="footer__links">
-              <a href="/terms" className="footer__link">Terms of Service</a>
-              <a href="/privacy" className="footer__link">Privacy Policy</a>
-            </div>
+
+        <div className="legal">
+          <p className="footer__text">© 2024 Naflows. All rights reserved.</p>
+          <div className="footer__links">
+            <a href="/terms" className="footer__link">Terms of Service</a>
+            <a href="/privacy" className="footer__link">Privacy Policy</a>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default AccountHeader;

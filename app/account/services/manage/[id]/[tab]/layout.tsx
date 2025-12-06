@@ -34,11 +34,11 @@ export default function ServiceManagementPage({
     const paramsResolved = use(params);
     const id = paramsResolved.id;
     const tab = paramsResolved.tab;
-    const { userFetch } = useAccountData();
+    const { userFetch, servicesFetch } = useAccountData();
     const [serviceData, setServiceData] = useState<ServicesCompleteBodyProps | null>(null);
 
     useEffect(() => {
-        if (!userFetch || !userFetch.id) {
+        if (!userFetch || !userFetch.id || !servicesFetch ) {
             console.log("User data not available yet in layout.");
             return;
         }
@@ -53,7 +53,7 @@ export default function ServiceManagementPage({
 
                 if (ignore) return; // ✅ Check before state updates
 
-                console.log("Access check result:", canAccess);
+                console.log(`--- Access Check for Service ID: ${id} ---`);
 
                 if (!canAccess) {
                     console.log("User does not have access to this service. Redirecting...");
@@ -88,7 +88,7 @@ export default function ServiceManagementPage({
             accessController.abort();
             controller.abort();
         };
-    }, [id, userFetch]);
+    }, [id, userFetch, servicesFetch]);
 
     return (
         <NotificationProvider>

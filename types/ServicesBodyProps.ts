@@ -8,6 +8,9 @@
 // joined_at: userServices[key].joined_at,
 // user_active: userServices[key].active,
 
+import { ServicesCompleteBodyProps } from "./ServicesCompleteProps";
+import { ServicesForUserProps } from "./ServicesForUserProps";
+
 export interface ServicesBodyProps {
     name: string; // Service name, used for display purposes
     id: string; // Service ID

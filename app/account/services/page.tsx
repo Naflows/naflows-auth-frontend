@@ -8,9 +8,9 @@ import { useEffect, useMemo, useState } from "react";
 import ManageServiceConnection from "../sub-components/manage-connection";
 import SearchService from "../sub-components/core/services/SearchBar";
 import CompactServiceDescription from "./components/compact.view";
-import { getAllServices } from "@/scripts/pages/services/get/get-all";
 import Loader from "@/global/components/Loader";
 import { useAccountData } from "../layout";
+import { ServicesForUserProps } from '@/types/ServicesForUserProps';
 
 
 
@@ -31,50 +31,22 @@ const ConnectionSVG = () => {
 }
 
 export default function ServicesInitPage() {
-    const [servicesData, setServicesData] = useState<ServicesBodyProps[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [serviceData, setServiceData] = useState<ServicesCompleteBodyProps | null>(null);
     const [servicesType, setServicesType] = useState<"services" | "connections">("services");
 
-    const { userFetch } = useAccountData();
+    const data = useAccountData();
+    const servicesData = data.servicesFetch;
 
-    // Fetch services once user is loaded
+
     useEffect(() => {
-        if (!userFetch || !userFetch.id) {
-            console.log("User data not available yet.");
-            return;
-        }
+        console.log("ServicesInitPage render:");
+        console.log("- servicesLoaded:", data.servicesLoaded);
+        console.log("- servicesFetch length:", data.servicesFetch.length);
+        console.log("- Loader showing:", data.servicesLoaded === false);
+    }, [data.servicesLoaded, data.servicesFetch]);
 
-        let ignore = false;
-        const controller = new AbortController();
 
-        const fetchServices = async () => {
-            setLoading(true);
-            try {
-                const services = await getAllServices(controller.signal);
-                if (!ignore && services?.data?.services) {
-                    console.log("Fetched services:", services);
-                    setServicesData(services.data.services);
-                }
-            } catch (error) {
-                if (!ignore && error instanceof Error && error.name !== 'CanceledError') {
-                    console.error("Error fetching services:", error);
-                }
-            } finally {
-                if (!ignore) {
-                    setLoading(false);
-                }
-            }
-        };
-
-        fetchServices();
-
-        return () => {
-            ignore = true; // ADD THIS LINE
-            controller.abort();
-        };
-    }, [userFetch]);
 
     // Memoize filtered services
     const userServices = useMemo(() =>
@@ -100,13 +72,13 @@ export default function ServicesInitPage() {
 
     return (
         <div className="user__body__services">
-            {loading && (
-                <Loader
-                    loading={loading}
-                    title="Loading services"
-                    message="Fetching services data from Naflows..."
-                />
-            )}
+
+            <Loader
+                loading={data.servicesLoaded === false}
+                title="Loading services"
+                message="Fetching services data from Naflows..."
+            />
+
 
             <div className="user__body__services__header">
                 <div className="services__header__tabs">

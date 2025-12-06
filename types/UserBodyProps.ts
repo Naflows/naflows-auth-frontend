@@ -1,9 +1,14 @@
+import { ServicesBodyProps } from "./ServicesBodyProps";
+import { ServicesCompleteBodyProps } from "./ServicesCompleteProps";
+import { ServicesForUserProps } from "./ServicesForUserProps";
 import type { ServiceRights } from "./TunnelingTypes";
 
 export interface UserBodyProps {
     _id: string;
     id: string; // User ID
     identifier: string; // PRE-HASHED identifier, a secure way of connecting set before the user is created
+    services?: ServicesBodyProps[] | ServicesForUserProps[] | ServicesCompleteBodyProps[]; // Sub-services, optional
+
     password: string; // PRE-HASHED password, a secure way of connecting set before the user is created
     email: string; // User email, used for notifications and password recovery
     created_at: string; // Date when the user was created
@@ -22,7 +27,7 @@ export interface UserBodyProps {
     phone_number?: string; // Phone number of the user, optional
     phone_verified?: boolean; // Whether the user's phone number is verified, optional
     email_verified?: boolean; // Whether the user's email is verified, optional
-    bio ?: string; // Short bio of the user, optional
-    rights : ServiceRights[]; // List of rights assigned to the user
+    bio?: string; // Short bio of the user, optional
+    rights: ServiceRights[]; // List of rights assigned to the user
 }
 
