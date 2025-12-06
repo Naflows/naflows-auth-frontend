@@ -6,6 +6,7 @@ export interface ServicesCompleteBodyProps {
     dns: string; // DNS of the service, used to identify the service
     active: "ACTIVE" | "INACTIVE" | "DEPRECATED"; // Service status, ACTIVE means the service is running, INACTIVE means the service is not running, DEPRECATED means the service is no longer supported
     rights: "ADMINISTRATOR" | "DEVELOPER" | "USER"; // Role of the user in the service, e.g., "admin", "user", etc.
+    backup_enabled?: boolean; // Whether backups are enabled for the service
     joined_at: number; // Date when the user joined the service
     user_active: boolean; // Whether the user's account in the service is active
     created_at: number; // Date when the service was created

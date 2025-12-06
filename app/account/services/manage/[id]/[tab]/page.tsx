@@ -8,6 +8,7 @@ import ServiceRightsComponentGlobal from "./components/overview/components/users
 import ServiceNetwork from "./components/overview/components/network";
 import ServiceUsers from "./components/overview/components/users";
 import Safety from "./components/overview/components/safety";
+import ServiceSettings from "./components/overview/components/settings";
 
 
 export default function ManageServicePage() {
@@ -41,6 +42,8 @@ export default function ManageServicePage() {
             return <ServiceUsers service={service} />;
         case "safety":
             return <Safety service={service} />;
+        case "settings":
+            return <ServiceSettings />
     }
 
     return (

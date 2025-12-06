@@ -8,12 +8,11 @@
 // joined_at: userServices[key].joined_at,
 // user_active: userServices[key].active,
 
-import { ServicesCompleteBodyProps } from "./ServicesCompleteProps";
-import { ServicesForUserProps } from "./ServicesForUserProps";
 
 export interface ServicesBodyProps {
     name: string; // Service name, used for display purposes
     id: string; // Service ID
+    backup_enabled?: boolean; // Whether backups are enabled for the service
     description?: string; // Service description, optional 
     dns: string; // DNS of the service, used to identify the service
     picture: string; // URL to the service's picture or logo
