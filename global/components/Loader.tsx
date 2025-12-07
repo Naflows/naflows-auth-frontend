@@ -12,7 +12,7 @@ const Loader = ({
   loading: boolean,
   title?: string,
   message?: string,
-  responsive?: boolea
+  responsive?: boolean
 }) => {
 
   // Loop that goes from "." to "..." for the loading message

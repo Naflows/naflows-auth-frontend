@@ -1,0 +1,248 @@
+@import "@/public/root/variables.scss";
+
+.two-fa__module__layout {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  gap: 50px;
+  padding: 20px;
+  background-color: $_2k25-background-hue-darker;
+  margin: auto;
+  border-radius: 20px;
+  width: 50%;
+  min-width: 300px;
+
+  .two-fa__module__info {
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    h3,
+    p {
+      margin: 0;
+      padding: 0;
+    }
+    border: 1px solid $da-warning-hue;
+    background-color: $da-warning-hue-transparent;
+    color: $da-warning-hue;
+  }
+  .two-fa__module__error {
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    h3,
+    p {
+      margin: 0;
+      padding: 0;
+    }
+    border: 1px solid $da-error-hue;
+    background-color: $da-error-hue-transparent;
+    color: $da-error-hue;
+  }
+
+  .header__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    .naflows-logo {
+      height: 50px;
+    }
+    .header__informations {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      align-items: center;
+      h2,
+      p {
+        margin: 0;
+        padding: 0;
+      }
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color : $da-secondary-hue-lighter-2;
+      }
+      p {
+        font-size: 1rem;
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+.connection__header {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+
+  gap: 15px;
+  img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+  .profile__informations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    #user-full-name {
+      font-weight: 600;
+    }
+    #user-email {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  }
+}
+
+.service__ownership__transfer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 80%;
+  margin: auto;
+  svg {
+    width: 50px;
+    height: 50px;
+    opacity: 0.5;
+  }
+  .new__user__card {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: $_2k25-background-hue-50-transparent;
+    height: fit-content;
+    align-items: center;
+    .user-info {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      .user__overlay {
+        width: 100%;
+        height: 100%;
+        height: 20px;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+.service-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: $_2k25-background-hue-50-transparent;
+  position: relative;
+  width: 250px;
+  overflow: hidden;
+
+  .service-banner {
+    height: 50px;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .service-info {
+    margin-top: 80px;
+    margin-left: 5px;
+    h4,
+    p {
+      margin: 0;
+      padding: 0;
+    }
+    p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  }
+
+  .service-icon {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    z-index: 1;
+    position: absolute;
+    border: 2px solid $_2k25-background-hue;
+    top: 25px;
+    left: 10px;
+  }
+
+  .service-card__informations {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    h4,
+    p {
+      margin: 0;
+      padding: 0;
+    }
+
+    h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  }
+}
+
+
+.page__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;    
+    align-items: center;
+
+}
+
+.actions__information {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+    width: 50%;
+    
+    h3,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+    
+    h3 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color : $da-secondary-hue-lighter-2;
+    }
+    
+    p {
+        opacity: 0.8;
+        text-align: center;
+        font-size: 12px;
+    }
+}
