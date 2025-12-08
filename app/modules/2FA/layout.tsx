@@ -65,24 +65,28 @@ export default function TwoFALayout({
         }}>
             <div className="two-fa__module__layout">
 
-                <div className="header__content">
-                    <img src="https://naflows.com/public/assets/naflows_full_logotype.png" alt="Naflows Logo" className="naflows-logo" />
+                <div className="right__section">
+                    <div className="header__content">
+                        <img src="https://naflows.com/public/assets/naflows_full_logotype.png" alt="Naflows Logo" className="naflows-logo" />
 
-                    <div className="header__informations">
-                        <h2>2FA Required</h2>
-                        <p>Naflows requires you to perform an additional step to execute your actions securely.</p>
+                        <div className="header__informations">
+                            <h2>2FA Required</h2>
+                            <p>Naflows requires you to perform an additional step to execute your actions securely.</p>
+                        </div>
+
                     </div>
 
-                </div>
-
-                <div className="connection__header">
-                    <img src={userFetch?.profile_picture || "/public/assets/default_avatar.png"} alt="User Avatar" />
-                    <div className="profile__informations">
-                        <span id="user-full-name">{userFetch?.first_name} {userFetch?.last_name}</span>
-                        <span id="user-email">{userFetch?.email}</span>
+                    <div className="connection__header">
+                        <img src={userFetch?.profile_picture || "/public/assets/default_avatar.png"} alt="User Avatar" />
+                        <div className="profile__informations">
+                            <span id="user-full-name">{userFetch?.first_name} {userFetch?.last_name}</span>
+                            <span id="user-email">{userFetch?.email}</span>
+                        </div>
                     </div>
                 </div>
-                {children}
+                <div className="left__section">
+                    {children}
+                </div>
             </div>
         </TwoFAContext.Provider>
     );
