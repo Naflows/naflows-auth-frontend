@@ -2,6 +2,8 @@ import Switch from "@/global/components/Switch";
 import UnauthorizedAccess from "@/global/components/Unauthorized";
 import { useServiceData } from "../../../../layout";
 import "@/public/root/pages/services/manage/sub-components/settings/index.scss";
+import requestExists from "@/scripts/modules/2FA/request-exists";
+import { useState } from "react";
 
 const Tile = ({ title, description, children }: { title: string; description: string; children: React.ReactNode }) => {
     return (
@@ -21,6 +23,8 @@ const Tile = ({ title, description, children }: { title: string; description: st
 const ServiceSettings = () => {
 
     const { service } = useServiceData() || {};
+
+    const [onFetchLoading, setOnFetchLoading] = useState(false);
 
     if (service) {
 
@@ -69,9 +73,26 @@ const ServiceSettings = () => {
                             title="Transfer Ownership"
                             description="Transfer the ownership of this service to another user. Please proceed with caution as this action is irreversible."
                         >
-                            <button className="primary-button danger-button" onClick={() => {
-                                window.location.href = `/modules/2FA?action=TRANSFER_OWNERSHIP&serviceID=${service.id}`;
-                            }}>Transfer Ownership</button>
+                            <button className="primary-button danger-button" onClick={async () => {
+                                setOnFetchLoading(true);
+                                const r = await requestExists({
+                                    action: "TRANSFER_OWNERSHIP",
+                                    data: {
+                                        serviceID: service.id
+                                    }
+                                })
+                                console.log("Request exists response:", r);
+                                if (!r.success) {
+                                    console.log("Redirecting to 2FA module for ownership transfer...");
+                                    window.location.href = `/modules/2FA?action=TRANSFER_OWNERSHIP&serviceID=${service.id}&redirect=/account/services/manage/${service.id}/settings/transfer-ownership`;
+
+                                } else {
+                                    window.location.href = '/account/services/manage/' + service.id + '/settings/transfer-ownership';
+                                }
+                                setOnFetchLoading(false);
+                            }}>
+                                {onFetchLoading ? "Processing..." : "Transfer Ownership"}
+                            </button>
                         </Tile>
                         <Tile
                             title="Delete Service"

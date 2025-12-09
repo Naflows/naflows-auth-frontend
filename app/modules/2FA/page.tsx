@@ -14,12 +14,13 @@ import { generateTwoFACode } from "@/scripts/modules/2FA/generate-code";
 export default function TwoFAPage({
     searchParams
 }: {
-    searchParams: Promise<{ action?: string; serviceID?: string }>
+    searchParams: Promise<{ action?: string; serviceID?: string,redirect?: string }>;
 }) {
     const [paramsResolved, setParamsResolved] = useState<{
         action: string;
         serviceID?: string;
-    }>({ action: "", serviceID: undefined });
+        redirect?: string;
+    }>({ action: "", serviceID: undefined, redirect: undefined });
     const noParam = paramsResolved.action === "";
 
     useEffect(() => {
@@ -223,6 +224,13 @@ export default function TwoFAPage({
                             <div className="verification__success">
                                 <h3>Verification Successful</h3>
                                 <p>Your identity has been successfully verified. You may now proceed with the requested action.</p>
+                                {paramsResolved.redirect && (
+                                    <button className="primary-button" onClick={() => {
+                                        window.location.href = paramsResolved.redirect!;
+                                    }}>
+                                        Continue
+                                    </button>
+                                )}
                             </div>
                         )
                     }
