@@ -7,6 +7,7 @@ import Loader from "@/global/components/Loader";
 import { ServicesBodyProps } from "@/types/ServicesBodyProps";
 import ServiceCard from "./subcomponents/service-card";
 import { generateTwoFACode } from "@/scripts/modules/2FA/generate-code";
+import { redirect } from "next/dist/server/api-utils";
 
 
 
@@ -14,7 +15,7 @@ import { generateTwoFACode } from "@/scripts/modules/2FA/generate-code";
 export default function TwoFAPage({
     searchParams
 }: {
-    searchParams: Promise<{ action?: string; serviceID?: string,redirect?: string }>;
+    searchParams: Promise<{ action?: string; serviceID?: string, redirect?: string }>;
 }) {
     const [paramsResolved, setParamsResolved] = useState<{
         action: string;
@@ -26,7 +27,8 @@ export default function TwoFAPage({
     useEffect(() => {
         searchParams.then(resolvedParams => setParamsResolved({
             action: resolvedParams.action || "",
-            serviceID: resolvedParams.serviceID
+            serviceID: resolvedParams.serviceID,
+            redirect: resolvedParams.redirect
         }));
     }, [searchParams]);
 
@@ -127,6 +129,11 @@ export default function TwoFAPage({
                 <div className="actions__information">
                     <h3>{TwoFAAction?.title}</h3>
                     <p>{TwoFAAction?.description}</p>
+
+                    {paramsResolved.redirect && (
+                            <p className="redirect-note">After successful verification, you will be redirected to: <strong>{paramsResolved.redirect}</strong></p>
+                        )
+                    }
                 </div>
 
 
