@@ -1,20 +1,18 @@
+'use client';
+
 import { useState } from "react";
-import type { ServiceOverviewTabs } from "../../types/tabs.type";
 import '@/public/root/pages/services/manage/sub-components/UsersList.scss';
 import useFetchUserList from "./scripts/fetch-user-list";
 import ListedUser from "./components/user";
-import { ServicesForUserProps, ServiceUser } from "@/types/ServicesForUserProps";
+import {  ServiceUser } from "@/types/ServicesForUserProps";
 import UnauthorizedAccess from "@/global/components/Unauthorized";
 import Loader from "@/global/components/Loader";
-import { ServicesCompleteBodyProps } from "@/types/ServicesCompleteProps";
+import { useServiceData } from "../layout";
 
 
 
-const ServiceUsers = ({
-    service
-}: {
-    service: ServicesForUserProps | ServicesCompleteBodyProps | null;
-}) => {
+export default function ServiceUsers() {
+    const { service } = useServiceData() || {};
     const [users, setUsers] = useState<ServiceUser[]>([]);
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -55,4 +53,3 @@ const ServiceUsers = ({
     )
 }
 
-export default ServiceUsers;

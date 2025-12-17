@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import ServiceRightsSmall from "../../components/small-right"
-import { updateRightsList } from "../../scripts/update-rights"
 import EditRightRight from "./edit-right-set"
 import { ServicesForUserProps } from "@/types/ServicesForUserProps"
 import { ServiceRights } from "@/types/TunnelingTypes"
 import SaveChanges from "@/global/components/save"
 import { useAccountData } from "@/app/account/layout"
+import { updateRightsList } from "../../users/scripts/update-rights"
+import ServiceRightsSmall from "../../users/components/small-right"
 
 
 

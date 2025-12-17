@@ -13,7 +13,7 @@ import '@/public/root/pages/services/manage/index.scss';
 import { AxiosError } from "axios";
 import { NotificationProvider } from "@/global/action-information/NotificationContent";
 import NotificationContainer from "@/global/action-information/NotificationContainer";
-import AccountDirectory from "../../../components/service-directory";
+import AccountDirectory from "../../components/service-directory";
 
 const ServiceDataContext = createContext<{
     service: ServicesCompleteBodyProps | null;
@@ -33,9 +33,12 @@ export default function ServiceManagementPage({
 }) {
     const paramsResolved = use(params);
     const id = paramsResolved.id;
-    const tab = paramsResolved.tab;
+    // Get tab from URL directly instead of props
+    const [tab, setTab] = useState<ServiceOverviewTabs>(new URL(window.location.href).pathname.split('/')[5] as ServiceOverviewTabs || paramsResolved.tab);
     const { userFetch, servicesFetch } = useAccountData();
     const [serviceData, setServiceData] = useState<ServicesCompleteBodyProps | null>(null);
+
+
 
     useEffect(() => {
         if (!userFetch || !userFetch.id || !servicesFetch ) {

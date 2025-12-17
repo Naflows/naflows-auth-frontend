@@ -1,6 +1,9 @@
+'use client';
+
+
 import Switch from "@/global/components/Switch";
 import UnauthorizedAccess from "@/global/components/Unauthorized";
-import { useServiceData } from "../../../../layout";
+import { useServiceData } from "../layout";
 import "@/public/root/pages/services/manage/sub-components/settings/index.scss";
 import requestExists from "@/scripts/modules/2FA/request-exists";
 import { useState } from "react";
@@ -20,11 +23,11 @@ const Tile = ({ title, description, children }: { title: string; description: st
 }
 
 
-const ServiceSettings = () => {
+export default function ServiceSettings() {
 
     const { service } = useServiceData() || {};
 
-    const [onFetchLoading, setOnFetchLoading] = useState(false);
+    const [onFetchLoading, setOnFetchLoading] = useState<string>("");
 
     if (service) {
 
@@ -74,7 +77,7 @@ const ServiceSettings = () => {
                             description="Transfer the ownership of this service to another user. Please proceed with caution as this action is irreversible."
                         >
                             <button className="primary-button danger-button" onClick={async () => {
-                                setOnFetchLoading(true);
+                                setOnFetchLoading("TRANSFER_OWNERSHIP");
                                 const r = await requestExists({
                                     action: "TRANSFER_OWNERSHIP",
                                     data: {
@@ -89,16 +92,35 @@ const ServiceSettings = () => {
                                 } else {
                                     window.location.href = '/account/services/manage/' + service.id + '/settings/transfer-ownership';
                                 }
-                                setOnFetchLoading(false);
+                                setOnFetchLoading("");
                             }}>
-                                {onFetchLoading ? "Processing..." : "Transfer Ownership"}
+                                {onFetchLoading==="TRANSFER_OWNERSHIP" ? "Processing..." : "Transfer Ownership"}
                             </button>
                         </Tile>
                         <Tile
                             title="Delete Service"
                             description="Permanently delete this service and all associated data. This action cannot be undone."
                         >
-                            <button className="primary-button danger-button">Delete Service</button>
+                            <button className="primary-button danger-button" onClick={async () => {
+                                setOnFetchLoading("DELETE_SERVICE");
+                                const r= await requestExists({
+                                    action: "DELETE_SERVICE",
+                                    data: {
+                                        serviceID: service.id
+                                    }
+                                })
+                                console.log("Request exists response:", r);
+                                if (!r.success) {
+                                    console.log("Redirecting to 2FA module for service deletion...");
+                                    window.location.href = `/modules/2FA?action=DELETE_SERVICE&serviceID=${service.id}&redirect=/account/services/manage/${service.id}/settings/delete-service`;
+
+                                } else {
+                                    window.location.href = '/account/services/manage/' + service.id + '/settings/delete-service';
+                                }
+                                setOnFetchLoading("");
+                            }}>
+                                {onFetchLoading==="DELETE_SERVICE" ? "Processing..." : "Delete Service"}
+                            </button>
                         </Tile>
                     </div>
                 </div>
@@ -107,4 +129,3 @@ const ServiceSettings = () => {
     }
 }
 
-export default ServiceSettings;

@@ -1,11 +1,11 @@
 import axios from "axios";
-import ServiceRightsSmall from "../../../components/small-right";
-import { updateRightsList } from "../../../scripts/update-rights";
 import NassRightsList from "../sub-components/nass-rights-list";
 import { ServiceRights } from "@/types/TunnelingTypes";
 import { ServicesForUserProps } from "@/types/ServicesForUserProps";
 import { useNotification } from "@/global/action-information/NotificationContent";
 import { dateToTimespan } from "@/scripts/utils/dateToTimespan";
+import ServiceRightsSmall from "../../../users/components/small-right";
+import { updateRightsList } from "../../../users/scripts/update-rights";
 
 
 

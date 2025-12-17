@@ -1,19 +1,15 @@
+'use client';
+
 import { ServicesForUserProps } from "@/types/ServicesForUserProps";
-import QuickActions from "./components/quick-actions"
 import ServiceLoosenedView from "@/app/account/services/components/loosened.view";
 import ServiceCapacities from "./components/sub-component/capacities";
 import ServiceAlerts from "./components/sub-component/alerts";
-import SecurityMeasures from "@/app/account/services/components/security-measures";
+import QuickActions from "../quick-actions";
+import { useServiceData } from "../layout";
 
 
-const ManageServiceOverview = ({
-    service,
-    setService
-}: {
-    service: null | ServicesForUserProps;
-    setService: (service: ServicesForUserProps) => void;
-}) => {
-
+export default function ManageServiceOverview() {
+    const { service, setService } = useServiceData() || {};
 
     console.log("Rendering ManageServiceOverview with service:", service);
 
@@ -47,4 +43,3 @@ const ManageServiceOverview = ({
     )
 }
 
-export default ManageServiceOverview;

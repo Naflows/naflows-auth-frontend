@@ -4,7 +4,7 @@ import FilterLogs from "./components/filters";
 import { Filters, Log } from "@/types/Logs.type";
 import Loader from "@/global/components/Loader";
 import { getLogs } from "@/scripts/pages/services/get/get-logs";
-import { useServiceData } from "../../../../layout";
+import { useServiceData } from "../../../../../layout";
 import LogsDirectory from "./components/directory";
 import SingleLog from "./components/log.single";
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from "react";
 import ServiceRightsComponent from "./components/rights";
 import '@/public/root/pages/services/manage/sub-components/Rights.scss';
@@ -7,13 +9,12 @@ import { ServiceRights } from "@/types/TunnelingTypes";
 import UnauthorizedAccess from "@/global/components/Unauthorized";
 import Loader from "@/global/components/Loader";
 import { fetchRights } from "@/scripts/pages/services/rights/fetch-rights";
+import { useServiceData } from "../layout";
+import '@/public/root/pages/services/manage/sub-components/Rights.scss';
+import '@/public/root/pages/services/manage/sub-components/UsersList.scss';
 
-
-const ServiceRightsComponentGlobal = ({
-    service
-}: {
-    service: ServicesForUserProps | null
-}) => {
+function ServiceRightsComponentGlobal() {
+    const { service } = useServiceData() || {};
 
     const [nassRights, setNassRights] = useState<ServiceRights[]>([]);
     const [instanceRights, setInstanceRights] = useState<ServiceRights[]>([]);
