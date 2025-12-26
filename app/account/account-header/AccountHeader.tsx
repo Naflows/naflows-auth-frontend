@@ -124,12 +124,10 @@ const AccountHeader = ({
             <span className="small-loader"></span>
           ) : (
             servicesFetch.slice(0, collapsed ? 3 : servicesFetch.length).map((service) => (
-              <div
+              <a
                 key={service.id}
                 className="service__item"
-                onClick={() => {
-                  window.location.href = `/account/services/manage/${service.id}/overview`;
-                }}
+                href={`/account/services/manage/${service.id}/overview`}
                 title={service.name}
               >
                 <img
@@ -148,7 +146,7 @@ const AccountHeader = ({
                   </div>
                 </div>
 
-              </div>
+              </a>
             ))
           )}
         </div>

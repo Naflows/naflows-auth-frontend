@@ -33,14 +33,23 @@ export interface ServicesCompleteBodyProps {
             verified: boolean;
             first_name?: string;
             last_name?: string;
-        }
-    }, 
-    public: {
-        privacy_policy_url?: string;
-        terms_of_service_url?: string;
-        contact_email?: string;
+        },
+        public: {
+            privacy_policy_url?: {
+                approved : boolean;
+                url: string;
+            };
+            terms_of_service_url?: {
+                approved : boolean;
+                url: string;
+            };
+            contact_email?: {
+                approved : boolean;
+                email: string;
+            };
+        },
     },
-    settings : {
+    settings: {
         rates: number; // Maximum requests per second allowed for the service
         rate_limit_window: number; // Time window in seconds for rate limiting
         developer_mode: boolean; // Whether developer mode is enabled for the service
