@@ -14,6 +14,8 @@ const AccountDirectory = ({ service, tab, title, description }: {
 }) => {
 
     if (!service) return null;
+
+    const url = (new URLSearchParams(window.location.search)).toString();
     
 
     return (

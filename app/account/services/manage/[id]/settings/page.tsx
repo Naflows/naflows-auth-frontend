@@ -96,7 +96,7 @@ export default function ServiceSettings() {
                             }
                         >
                             <button className="primary-button" onClick={() => {
-                                window.location.href = `/account/services/manage/${service.id}/settings/data-retention`;
+                                window.location.href = `/account/services/manage/${service.id}/settings/legal/upload/privacy-policy`;
                             }}>
                                 Manage Data Policy
                             </button>
@@ -120,16 +120,16 @@ export default function ServiceSettings() {
                             }
                         >
                             <button className="primary-button" onClick={() => {
-                                window.location.href = `/account/services/manage/${service.id}/settings/terms-of-service`;
+                                window.location.href = `/account/services/manage/${service.id}/settings/legal/upload/terms-of-service`;
                             }}>
                                 Manage Service Terms
                             </button>
                         </Tile>
 
-                        <Tile 
+                        <Tile
                             title="Support Email"
                             description="Set or update the support email address for your service to ensure users can reach out for assistance."
-                                                        badge={
+                            badge={
                                 <span className="badge badge--info" style={{
                                     display: service.details.public.contact_email?.approved || service.details.public.contact_email?.email === "null" ? 'flex' : 'none'
                                 }}>
@@ -151,7 +151,7 @@ export default function ServiceSettings() {
                         </Tile>
                     </div>
 
-                    
+
                 </div>
 
                 <div className="tab__content__section">
