@@ -83,14 +83,14 @@ export default function ServiceSettings() {
                             description="Update your service's data retention policy to comply with legal requirements and inform your users."
                             badge={
                                 <span className="badge badge--info" style={{
-                                    display: service.details.public.privacy_policy_url?.approved || service.details.public.privacy_policy_url?.url === "null" ? 'flex' : 'none'
+                                    display: service.details.public.privacy_policy_url?.approved || service.details.public.privacy_policy_url?.value === "null" ? 'flex' : 'none'
                                 }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
                                         <path fillRule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clipRule="evenodd" />
                                     </svg>
 
                                     <p>
-                                        {service.details.public.privacy_policy_url?.url === 'null' ? "Please complete" : "Pending Approval"}
+                                        {service.details.public.privacy_policy_url?.value === 'null' ? "Please complete" : "Pending Approval"}
                                     </p>
                                 </span>
                             }
@@ -107,14 +107,14 @@ export default function ServiceSettings() {
                             description="Review and update your service's terms of service to ensure clarity and legal compliance."
                             badge={
                                 <span className="badge badge--info" style={{
-                                    display: service.details.public.terms_of_service_url?.approved || service.details.public.terms_of_service_url?.url === "null" ? 'flex' : 'none'
+                                    display: service.details.public.terms_of_service_url?.approved || service.details.public.terms_of_service_url?.value === "null" ? 'flex' : 'none'
                                 }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
                                         <path fillRule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clipRule="evenodd" />
                                     </svg>
 
                                     <p>
-                                        {service.details.public.terms_of_service_url?.url === 'null' ? "Please complete" : "Pending Approval"}
+                                        {service.details.public.terms_of_service_url?.value === 'null' ? "Please complete" : "Pending Approval"}
                                     </p>
                                 </span>
                             }
@@ -131,22 +131,22 @@ export default function ServiceSettings() {
                             description="Set or update the support email address for your service to ensure users can reach out for assistance."
                             badge={
                                 <span className="badge badge--info" style={{
-                                    display: service.details.public.contact_email?.approved || service.details.public.contact_email?.email === "null" ? 'flex' : 'none'
+                                    display: service.details.public.contact_email?.approved || service.details.public.contact_email?.value === "null" ? 'flex' : 'none'
                                 }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
                                         <path fillRule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clipRule="evenodd" />
                                     </svg>
 
                                     <p>
-                                        {service.details.public.contact_email?.email === 'null' ? "Please complete" : "Pending Approval"}
+                                        {service.details.public.contact_email?.value === 'null' ? "Please complete" : "Pending Approval"}
                                     </p>
                                 </span>
                             }
                         >
                             <button className="primary-button" onClick={() => {
-                                window.location.href = `/account/services/manage/${service.id}/settings/support-email`;
+                                window.location.href = `/account/services/manage/${service.id}/settings/legal/upload/support-contact`;
                             }}>
-                                Manage Support Email
+                                Manage Support Contact
                             </button>
                         </Tile>
                     </div>

@@ -1,7 +1,7 @@
+"use client";
 import { useEffect, useState } from "react";
 import { ServicesForUserProps } from "@/types/ServicesForUserProps";
 import { getApiKeyFromBackend } from "@/scripts/pages/services/dev/getApiKey";
-import Input from "@/global/components/Input";
 
 function copyId(serviceId: string, element: HTMLElement) {
     navigator.clipboard.writeText(serviceId);
@@ -12,11 +12,11 @@ function copyId(serviceId: string, element: HTMLElement) {
 } 
 
 
-export const Safety = ({
+export default function Safety({
     service
 }: {
     service: null | ServicesForUserProps;
-}) => {
+}) {
     const [onLoadApiKeyGet, setOnLoadApiKeyGet] = useState<boolean>(false);
     const [loadingContent, setLoadingContent] = useState<string>("Loading.");
 
@@ -98,4 +98,3 @@ export const Safety = ({
     )
 
 }
-export default Safety;

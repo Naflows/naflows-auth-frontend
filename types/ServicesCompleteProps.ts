@@ -37,15 +37,15 @@ export interface ServicesCompleteBodyProps {
         public: {
             privacy_policy_url?: {
                 approved : boolean;
-                url: string;
+                value: string;
             };
             terms_of_service_url?: {
                 approved : boolean;
-                url: string;
+                value: string;
             };
             contact_email?: {
                 approved : boolean;
-                email: string;
+                value: string;
             };
         },
     },
