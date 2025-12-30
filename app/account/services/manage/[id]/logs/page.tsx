@@ -1,17 +1,18 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import LogUserDetails from "./components/user-details";
 import FilterLogs from "./components/filters";
 import { Filters, Log } from "@/types/Logs.type";
 import Loader from "@/global/components/Loader";
-import { getLogs } from "@/scripts/pages/services/get/get-logs";
-import { useServiceData } from "../../../../../layout";
 import LogsDirectory from "./components/directory";
 import SingleLog from "./components/log.single";
+import { getLogs } from "@/scripts/pages/services/get/get-logs";
+import { useServiceData } from "../layout";
 
 
 
-const LatestLogs = () => {
-
+export default function LatestLogs() {
     const [logs, setLogs] = useState<Log[]>([]);
     const [totalLogs, setTotalLogs] = useState<number>(0);
     const [totalTabs, setTotalTabs] = useState<number>(0);
@@ -146,4 +147,4 @@ const LatestLogs = () => {
     )
 };
 
-export default LatestLogs;
+
