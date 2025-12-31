@@ -37,7 +37,7 @@ export const createServiceToNass = ({
         console.log(res);
         if (res.status === 200) {
             setTimeout(() => {
-                window.location.href = `/accout/services/manage/${serviceDescription.id}`;
+                window.location.href = `/account/services/manage/${serviceDescription.id}`;
             }, 5000);
         }
     }).catch((err) => {

@@ -266,7 +266,7 @@ textarea {
         margin: unset;
 
         &.textarea-label {
-          top: 0;
+          top: -10px !important;
         }
       }
     }
@@ -643,7 +643,7 @@ textarea {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    column-gap: 20px;
+    column-gap: 10px;
 
     .inputs-container {
       flex: 1;

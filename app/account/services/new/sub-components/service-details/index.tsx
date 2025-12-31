@@ -8,6 +8,7 @@ import Input from "@/global/components/Input";
 import Textarea from "@/global/components/Textarea";
 import Switch from "@/global/components/Switch";
 import '@/public/root/index.scss';
+import Markdown from "react-markdown";
 
 
 const CreateServiceDescription = ({
@@ -108,11 +109,11 @@ const CreateServiceDescription = ({
                                     name="service-id"
                                     allowCopy={true}
                                     value={serviceID}
-                                    fitContent={true}
+                                    fitContent={false}
                                     autoComplete={false}
                                 />
                             </div>
-                            <div className="global__input">
+                            <div className="global__input textarea__container" id="service-description-container">
                                 <Textarea
                                     label="Service Description"
                                     name="service-description"
@@ -127,6 +128,16 @@ const CreateServiceDescription = ({
                                     minHeight={200}
 
                                 />
+                                <div className="service-description-preview">
+                                    <p className="preview-label">
+                                        Preview
+                                    </p>
+                                    <div className="markdown-preview">
+                                        <Markdown>
+                                            {serviceDescription.description || "Nothing to preview."}
+                                        </Markdown>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

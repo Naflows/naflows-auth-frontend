@@ -146,18 +146,23 @@ const ListedUser = ({ user, service }: { user: ServiceUser, service: ServicesFor
 
     return (
         <div key={user.id} className={`user__item ${service?.created_by === user.id ? "owner__item" : ""}`}>
-            {service?.created_by === user.id && (
-                <span className="owner__badge" title="Service Owner">
-                    Owner
-                </span>
-            )}
             <div className="user__head__component">
                 <div className="user__item__info">
                     <div className="profile__picture">
                         <img src={user.profile_picture} alt={user.username} className="user__item__avatar" />
                     </div>
                     <div className="item__info__header">
-                        <span className="user__item__username">{user.username}</span>
+                        <span className="user__item__username">
+                            <span id="user-username">
+                                {user.username}
+                            </span>
+                            {service?.created_by === user.id && (
+                                <span className="owner__badge" title="Service Owner">
+                                    Owner
+                                </span>
+                            )}
+
+                        </span>
                         <span className="user__item__email">{user.email}</span>
                         <span className="user__item__uid">
                             <span className="user__item__id">{user.id}</span>

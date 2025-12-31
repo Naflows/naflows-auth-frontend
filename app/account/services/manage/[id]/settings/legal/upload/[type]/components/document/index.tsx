@@ -48,6 +48,12 @@ export default function UploadLegalDocuments({ type }: { type: LegalType }) {
     } = useNotification();
 
     useEffect(() => {
+        if (service) {
+            setContent(service.details.public[type.replace(/-/g, "_") as keyof typeof service.details.public]?.value || basicMarkdownExample);
+        }
+    }, [service])
+
+    useEffect(() => {
         if (markdownHeaderRef.current) {
             setCurrentRefHeight(markdownHeaderRef.current.clientHeight);
         }
