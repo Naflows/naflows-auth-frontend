@@ -8,12 +8,13 @@
   margin: auto;
   width: 100% !important;
   height: fit-content;
+  margin-top: 0 !important;
   .user__body__section {
     margin: unset;
   }
   .user__body__personal-informations {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: start;
     justify-content: start;
     gap: 20px;
@@ -44,6 +45,16 @@
     width: 100%;
     .inputs-container {
       width: 100%;
+      &.row-button {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: end;
+        button {
+          align-self: stretch;
+          height: 100%;
+        }
+      }
     }
   }
   .location__informations,
@@ -106,6 +117,11 @@
       border-radius: 50%;
       object-fit: cover;
       background-color: $_2k25-background-hue-darker-2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+      color: $da-secondary-hue-lighter-2;
     }
     .secondary-button {
       width: 100%;

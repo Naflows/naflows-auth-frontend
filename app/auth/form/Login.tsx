@@ -46,23 +46,10 @@ const LoginForm = ({
         <div className="global__input__container two-columns">
           <div className="inputs-container global__input">
             <Input
-              label="Customer ID"
-              type="text"
-              name="customerID"
-              required={true}
-              maxLength={100}
-              fitContent={false}
-              editMode={true}
-              onChange={() => { }}
-            />
-          </div>
-          <div className="inputs-container global__input">
-            <Input
               label="Identifier"
               type="text"
               name="identifier"
               required={true}
-              maxLength={9}
               fitContent={false}
               autoComplete={false}
               editMode={true}

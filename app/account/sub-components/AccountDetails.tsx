@@ -56,7 +56,11 @@ const AccountDetails = ({
           </div>
           <div className="user__details">
             <div className="inputs-container global__inputs row-20">
-              <div className="inputs-container row-20 row-no-wrap">
+              <div className="inputs-container " style={{
+                display:"flex",
+                flexDirection:"row",
+                gap:"20px"
+              }}>
                 <Input
                   label="First name"
                   value={userData.first_name}

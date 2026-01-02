@@ -118,7 +118,9 @@ const AccountHeader = ({
       </div>
 
 
-      <div className="services__content">
+      <div className="services__content" style={{
+        display : servicesFetch.length == 0 ? "none" : undefined
+      }}>
         <div className="services__list">
           {!servicesLoaded ? (
             <span className="small-loader"></span>
@@ -162,7 +164,8 @@ const AccountHeader = ({
             <div className="user__header__content">
               <AccountUserBodyProfilePicture
                 profilePictureUrl={userFetch.profile_picture}
-                altText={`Profile picture of ${userFetch.username}`}
+                firstName={userFetch.first_name}
+                lastName={userFetch.last_name}
               />
               <div className="user__header__informations">
                 <h3 className="name">

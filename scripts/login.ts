@@ -25,7 +25,7 @@ export async function manageLogin(
         const response = await axios.post(
             `${process.env.NEXT_PUBLIC_DUMMY_API_URL_DEV}/send-login-request`,
             {
-                user_id: customerID.value,
+                //user_id: customerID.value,
                 identifier: identifier.value,
                 password: password.value,
             },

@@ -25,7 +25,7 @@ const UserPersonalInformations = ({
             </div>
             <div className="user__details">
               <div className="inputs-container global__inputs col-20">
-                <div className="inputs-container row-20 row-no-wrap">
+                <div className="inputs-container row-button">
                   <Input
                     label="Email Address"
                     value={userData.email}
@@ -39,22 +39,6 @@ const UserPersonalInformations = ({
                   />
                   <button className="secondary-button" style={{ height: '40px', alignSelf: 'center' }}>
                     Change Email
-                  </button>
-                </div>
-                <div className="inputs-container row-20 row-no-wrap">
-                  <Input
-                    label="Phone Number"
-                    value={userData.phone_number}
-                    type="tel"
-                    name="phone"
-                    required={true}
-                    maxLength={100}
-                    autoComplete={false}
-                    fitContent={false}
-                    onChange={() => { }}
-                  />
-                  <button className="secondary-button" style={{ height: '40px', alignSelf: 'center' }}>
-                    Change Phone
                   </button>
                 </div>
               </div>

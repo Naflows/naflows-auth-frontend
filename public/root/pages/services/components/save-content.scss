@@ -61,6 +61,7 @@
     }
     &.hide {
         animation: SaveChangesContainerDisappears 0.3s forwards;
+        display: none;
     }
 
     .save__changes__container__header {
