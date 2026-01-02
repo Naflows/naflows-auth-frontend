@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
 const Switch = ({
@@ -11,7 +11,7 @@ const Switch = ({
     label: string;
     checked: boolean;
     onChange: (checked: boolean) => void;
-    description: string;
+    description: string | React.ReactNode;
     mandatory?: boolean;
     additionalClass?: string;
     disabled?: boolean;

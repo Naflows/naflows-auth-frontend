@@ -100,7 +100,7 @@ const LoginForm = ({
 
         </button>
         <span className="separator">Or</span>
-        <button className="secondary-button  text-size-20 width-100-auto" onClick={() => {
+        <button className="tertiary-button  text-size-20 width-100-auto" onClick={() => {
           // Redirect to register form to ./auth?form=register
           const newUrl = new URL(window.location.href);
           newUrl.searchParams.set("form", "register");

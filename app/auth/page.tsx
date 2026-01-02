@@ -95,7 +95,7 @@ export default function AuthPage({ searchParams }: { searchParams: Promise<{ [ke
             }}>
                 <div className="disclaimers__container">
                     {
-                        logoutReason && <GlobalDisclaimer
+                        logoutReason && formType != "register" && <GlobalDisclaimer
                             allowHidden={false}
                             title={`You have been logged out`}
                             message={""}
@@ -109,7 +109,7 @@ export default function AuthPage({ searchParams }: { searchParams: Promise<{ [ke
                         />
                     }
                     {
-                        redirectReason && <GlobalDisclaimer
+                        redirectReason && formType != "register" && <GlobalDisclaimer
                             allowHidden={true}
                             title={`This login will redirect you`}
                             message={""}

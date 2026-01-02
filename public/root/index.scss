@@ -177,8 +177,7 @@ input {
   outline-width: 1px !important;
   position: relative;
   width: fit-content;
-  min-width: 150px;
-  max-width: calc(100% - 40px);
+  max-width: calc(100% - 40px) ;
 
   /* Remove the input number type arrows */
   &::-webkit-inner-spin-button,
@@ -737,6 +736,11 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  
+  border: 1px solid $_2k25-background-hue-40;
+  border-style: solid none solid none;
 }
 
 //

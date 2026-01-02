@@ -40,7 +40,7 @@ const Input = ({
   errorMessage = undefined
 }: InputProps) => {
   const [valueIn, setValueIn] = useState<boolean>(value ? true : false);
-  const [inputValue, setInputValue] = useState<string>(value);
+  const [inputValue, setInputValue] = useState<string>("");
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [displayError, setDisplayError] = useState<boolean>(false);
 
@@ -76,6 +76,34 @@ const Input = ({
 
   }
 
+  const handleChange = (v: string) => {
+    if (maxChar != null && v.length > maxChar) {
+      const input = document.getElementById(name + "-input") as HTMLInputElement;
+      if (input) {
+        input.value = v.substring(0, maxChar);
+      }
+      return;
+    }
+    
+    if (v.replace(" ", "") !== "") {
+      setValueIn(true);
+    } else {
+      setValueIn(false);
+    }
+
+    if (onError && onError(v) && errorMessage) {
+      setDisplayError(true);
+      onChange && onChange("");  // Call original onChange
+    } else {
+      setDisplayError(false);
+      onChange && onChange(v);   // Call original onChange
+    }
+
+    setInputValue(v);
+  };
+  useEffect(() => {
+    setInputValue(value);
+  }, [value])
 
   useEffect(() => {
     if (allowCopy && value) {
@@ -123,7 +151,13 @@ const Input = ({
           name={name}
           id={name + "-input"}
           defaultValue={value}
-          onInput={(e) => onChange && onChange(e.currentTarget.value)}
+          onInput={(e) => handleChange(e.currentTarget.value)}
+          // for date inputs and onchange
+          onChange={(e) => {
+            if (type === "date") {
+              handleChange(e.currentTarget.value);
+            }
+          }}
           style={{
             width: fitContent ? "fit-content" : "100%",
           }}
@@ -150,7 +184,7 @@ const Input = ({
 
         {maxChar && displayMaxChar ? (
           <p className="character-count" style={{
-            right : fitContent ? "10px" : "20px"
+            right: fitContent ? "10px" : "20px"
           }}>{inputValue ? inputValue.length : 0}/{maxChar}</p>
         ) : null}
         {displayError && errorMessage ? (
