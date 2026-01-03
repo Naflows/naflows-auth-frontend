@@ -32,8 +32,15 @@
 .tab__content__container {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
 }
+.service__tab__content {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+
 .content__tile {
 
   display: flex;

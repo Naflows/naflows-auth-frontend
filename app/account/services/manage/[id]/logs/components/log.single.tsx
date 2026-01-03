@@ -63,8 +63,8 @@ export default function SingleLog({
                 </span>
             </td>
             <td className="log__timestamp">
-                <span>{dateToTimespan(log.created_at)}</span>
-                <span>{new Date(log.created_at).toLocaleString()}</span>
+                <span id={`log__timestamp__short__${log.id}`} className="log__timestamp__when">{dateToTimespan(log.created_at)}</span>
+                <span id={`log__timestamp__${log.id}`} className="log__timestamp__date">{new Date(log.created_at).toLocaleString()}</span>
             </td>
         </tr>
     )

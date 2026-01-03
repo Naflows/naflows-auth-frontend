@@ -41,7 +41,8 @@ export default function UploadLegalDocuments({ type }: { type: LegalType }) {
     const [currentRefHeight, setCurrentRefHeight] = useState<number>(0);
     const serviceData = useServiceData();
     const service = serviceData?.service;
-    const [content, setContent] = useState<string>(service?.details.public[type.replace(/-/g, "_") as keyof typeof service.details.public]?.value || basicMarkdownExample);
+    const [content, setContent] = useState<string>("");
+    const [typeKey, setTypeKey] = useState<string>(type.replace(/-/g, "_") + "_url");
 
     const {
         addNotification
@@ -49,7 +50,15 @@ export default function UploadLegalDocuments({ type }: { type: LegalType }) {
 
     useEffect(() => {
         if (service) {
-            setContent(service.details.public[type.replace(/-/g, "_") as keyof typeof service.details.public]?.value || basicMarkdownExample);
+            console.log("Service details public:", service.details.public);
+            console.log("Type key:", type.replace(/-/g, "_"));
+            const typeKey = type.replace(/-/g, "_") + "_url";
+            if (service.details.public[typeKey as keyof typeof service.details.public]) {
+                setContent(service.details.public[type.replace(/-/g, "_") + "_url" as keyof typeof service.details.public]?.value || basicMarkdownExample);
+                setTypeKey(typeKey);
+            } else {
+                setContent(basicMarkdownExample);
+            }
         }
     }, [service])
 
@@ -94,7 +103,7 @@ export default function UploadLegalDocuments({ type }: { type: LegalType }) {
                 <div className="textarea__content">
 
                     {
-                        !service.details.public[type.replace(/-/g, "_") as keyof typeof service.details.public]?.approved &&
+                        !service.details.public[typeKey as keyof typeof service.details.public]?.approved &&
                         <div className="info__banner">
                             <strong>Note:</strong> No {type === 'privacy-policy' ? 'Privacy Policy' : 'Terms of Service'} has been approved for this service yet. You cannot publish your service until an approved document is in place.
                         </div>

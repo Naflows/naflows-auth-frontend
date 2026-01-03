@@ -4,10 +4,13 @@ import { getUsersByUsername } from "@/scripts/pages/services/user/get-by-usernam
 
 
 const FilterLogs = ({
-    filters, setFilters
+    filters, setFilters,
+    openFilter, setOpenFilter
 }: {
     filters: Filters;
     setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+    openFilter: boolean;
+    setOpenFilter: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
     // Component code here
     const [username, setUsername] = useState<string>("");
@@ -18,6 +21,31 @@ const FilterLogs = ({
         last_name: string;
         profile_picture: string | null;
     }[]>([]);
+    const ref = useRef<HTMLDivElement>(null);
+
+    // If any click outside when filter box is open, close it
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (ref.current && !ref.current.contains(event.target as Node)) {
+                // Prevent closing when clicking on the button to open the filter
+                const button = document.getElementById("open-filter");
+                if (button && button.contains(event.target as Node)) {
+                    return;
+                }
+                setOpenFilter(false);
+            }
+        }
+
+        if (openFilter) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [openFilter, ref]);
 
     useEffect(() => {
         if (username.length > 3 && username !== filters.user) {
@@ -34,7 +62,9 @@ const FilterLogs = ({
     }, [username]);
 
     return (
-        <div className="filter__box">
+        <div className="filter__box" style={{
+            display: openFilter ? "flex" : "none"
+        }} ref={ref}>
             <h4>
                 Log Filters
             </h4>

@@ -126,7 +126,8 @@ body {
   backdrop-filter: blur(5px);
 
   &.max-width {
-    max-width: 600px !important;
+    max-width: calc(100% - 4px - 40px) !important;
+    min-width: calc(100% - 4px - 40px) !important;
   }
 
   .global__disclaimer__header {

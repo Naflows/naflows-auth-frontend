@@ -21,6 +21,7 @@ export default function LatestLogs() {
     const [hoveredLog, setHoveredLog] = useState<Log | null>(null);
 
     const [offset, setOffset] = useState<number>(0);
+    const [openFilter, setOpenFilter] = useState<boolean>(false);
 
     const [filters, setFilters] = useState<Filters>({
         dateFrom: null,
@@ -76,8 +77,9 @@ export default function LatestLogs() {
     }
 
     return (
-        <div className="logs__container">
-            <FilterLogs filters={filters} setFilters={setFilters} />
+        <div className="logs__container user__body__section">
+            <FilterLogs 
+            filters={filters} setFilters={setFilters} openFilter={openFilter} setOpenFilter={setOpenFilter} />
 
             <LogsDirectory
                 totalLogs={totalLogs}
@@ -85,6 +87,8 @@ export default function LatestLogs() {
                 offset={offset}
                 setOffset={setOffset}
                 isError={isError}
+                openFilter={openFilter}
+                setOpenFilter={setOpenFilter}
             />
 
             {
