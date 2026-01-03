@@ -9,6 +9,12 @@
 
   .panel-body,
   .panel-footer {
+    #register-name-birthdate {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
     background-color: $_2k25-background-hue-darker;
     display: flex;
     flex-direction: column;

@@ -45,9 +45,11 @@ const AccountUserBody = ({
 
     return (
       <div className="nass__account__page_user__body" style={{
-        
+
       }}>
         <Alert alert={alert} setAlert={setAlert} />
+        <AccountDetails userData={userData} setUserData={setUserData} />
+        <UserPersonalInformations userData={userData} setUserData={setUserData} />
         <SaveChanges appear={isDirty} onChange={async () => {
 
           const res = await axios.put(`${process.env.NEXT_PUBLIC_DUMMY_API_URL_DEV}/set-user-info/user/update`, {
@@ -71,7 +73,7 @@ const AccountUserBody = ({
               message: "Changes saved successfully.",
               success: true,
               closeAlert: false,
-              
+
             })
             setSavedUserData(userData);
             setIsDirty(false);
@@ -85,8 +87,6 @@ const AccountUserBody = ({
             })
           }
         }} />
-        <AccountDetails userData={userData} setUserData={setUserData} />
-        <UserPersonalInformations userData={userData} setUserData={setUserData} />
       </div>
     );
   }

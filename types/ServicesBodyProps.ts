@@ -21,7 +21,7 @@ export interface ServicesBodyProps {
     rights: "ADMINISTRATOR" | "DEVELOPER" | "USER"; // Role of the user in the service, e.g., "admin", "user", etc.
     joined_at: number; // Date when the user joined the service
     user_active: boolean; // Whether the user's account in the service is active
-    created_at?: number;
+    created_at: number;
     is_user_developer?: boolean;
     public_settings?: {
         required_data?: Array<"PHONE" | "EMAIL" | "FIRST AND LAST NAME" | "ADDRESS" | "BIRTHDATE" | "ACCOUNT SECURITY MEASURES" | "BILLING DETAILS">; // What personal data is required for a user to register in the service

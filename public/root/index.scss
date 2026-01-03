@@ -34,7 +34,7 @@ body {
     flex-wrap: wrap;
     gap: 5px;
     .global__nass__disclaimer {
-      min-width: calc(100% - 40px - 2px);
+      min-width: calc(100% - 2px);
     }
   }
 }
@@ -120,12 +120,14 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: calc(100% - 2px - 40px);
+
 
   backdrop-filter: blur(5px);
-  width: fit-content;
 
   &.max-width {
-    max-width: 600px !important;
+    max-width: calc(100% - 4px - 40px) !important;
+    min-width: calc(100% - 4px - 40px) !important;
   }
 
   .global__disclaimer__header {
@@ -143,7 +145,7 @@ body {
     }
   }
 
-  p {
+  p,ul {
     margin: 0;
     font-size: 14px;
     opacity: 0.8;
@@ -176,8 +178,7 @@ input {
   outline-width: 1px !important;
   position: relative;
   width: fit-content;
-  min-width: 150px;
-  max-width: calc(100% - 40px);
+  max-width: calc(100% - 40px) ;
 
   /* Remove the input number type arrows */
   &::-webkit-inner-spin-button,
@@ -265,13 +266,17 @@ textarea {
         margin: unset;
 
         &.textarea-label {
-          top: 0;
+          top: -10px !important;
         }
       }
     }
 
     label {
       color: $da-secondary-hue-lighter-2;
+      max-width: calc(90% - 20px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .character-count {
@@ -642,7 +647,7 @@ textarea {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    column-gap: 20px;
+    column-gap: 10px;
 
     .inputs-container {
       flex: 1;
@@ -736,6 +741,11 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  
+  border: 1px solid $_2k25-background-hue-40;
+  border-style: solid none solid none;
 }
 
 //

@@ -46,23 +46,10 @@ const LoginForm = ({
         <div className="global__input__container two-columns">
           <div className="inputs-container global__input">
             <Input
-              label="Customer ID"
-              type="text"
-              name="customerID"
-              required={true}
-              maxLength={100}
-              fitContent={false}
-              editMode={true}
-              onChange={() => { }}
-            />
-          </div>
-          <div className="inputs-container global__input">
-            <Input
               label="Identifier"
               type="text"
               name="identifier"
               required={true}
-              maxLength={9}
               fitContent={false}
               autoComplete={false}
               editMode={true}
@@ -100,7 +87,7 @@ const LoginForm = ({
 
         </button>
         <span className="separator">Or</span>
-        <button className="secondary-button  text-size-20 width-100-auto" onClick={() => {
+        <button className="tertiary-button  text-size-20 width-100-auto" onClick={() => {
           // Redirect to register form to ./auth?form=register
           const newUrl = new URL(window.location.href);
           newUrl.searchParams.set("form", "register");

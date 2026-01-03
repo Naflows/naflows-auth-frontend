@@ -118,18 +118,18 @@ const AccountHeader = ({
       </div>
 
 
-      <div className="services__content">
+      <div className="services__content" style={{
+        display : servicesFetch.length == 0 ? "none" : undefined
+      }}>
         <div className="services__list">
           {!servicesLoaded ? (
             <span className="small-loader"></span>
           ) : (
             servicesFetch.slice(0, collapsed ? 3 : servicesFetch.length).map((service) => (
-              <div
+              <a
                 key={service.id}
                 className="service__item"
-                onClick={() => {
-                  window.location.href = `/account/services/manage/${service.id}/overview`;
-                }}
+                href={`/account/services/manage/${service.id}/overview`}
                 title={service.name}
               >
                 <img
@@ -148,7 +148,7 @@ const AccountHeader = ({
                   </div>
                 </div>
 
-              </div>
+              </a>
             ))
           )}
         </div>
@@ -164,7 +164,8 @@ const AccountHeader = ({
             <div className="user__header__content">
               <AccountUserBodyProfilePicture
                 profilePictureUrl={userFetch.profile_picture}
-                altText={`Profile picture of ${userFetch.username}`}
+                firstName={userFetch.first_name}
+                lastName={userFetch.last_name}
               />
               <div className="user__header__informations">
                 <h3 className="name">

@@ -49,6 +49,37 @@
   flex-direction: column;
   gap: 20px;
 
+  #service-description-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    .textarea-container,.service-description-preview  {
+      flex: 1;
+    }
+    .service-description-preview {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      .preview-label {
+        margin: 0;
+        font-size: 14px;
+        opacity: 0.7;
+      }
+      .markdown-preview {
+        padding: 10px;
+        border: 1px solid $_2k25-background-hue-50;
+        border-radius: 8px;
+        align-self: stretch;
+        height: 100%;
+        background-color: $_2k25-background-hue-darker-2;
+        user-select: none;
+        p {
+          margin: 0;
+        }
+      }
+    }
+  }
+
   .image__upload__container {
     min-width: 150px;
     min-height: 150px;

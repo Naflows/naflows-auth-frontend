@@ -51,6 +51,15 @@
     #logout-button {
       display: none;
     }
+    .footer__head {
+      flex-direction: column-reverse !important;
+      #logout-button {
+        display: flex !important;
+        span {
+          display: none !important;
+        }
+      }
+    }
     .header__tabs {
       .tabs {
         .header__tab {
@@ -74,7 +83,6 @@
     }
 
     .header__account {
-      flex-direction: column-reverse !important;
       .secondary-button {
         min-width: calc(100%) !important;
         height: fit-content !important;
@@ -86,9 +94,10 @@
         align-self: unset;
         height: fit-content !important;
         padding: 5px !important;
+        min-width: calc(100% - 4px - 10px) !important;
         align-self: stretch;
         flex: 1;
-        min-width: calc(100% - 10px - 2px) !important;
+
         border-radius: 10px !important;
         justify-content: center !important;
         .user__header__content {
@@ -193,8 +202,8 @@
       }
 
       .user__header__visual__access {
-        flex:1;
-        min-width: calc(100% - 25px - 4px) !important;
+        flex: 1;
+        min-width: calc(100% - 25px - 4px);
         .user__header__visual__hover {
           border-radius: 15px;
           display: none;
@@ -270,6 +279,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          color : $da-secondary-hue-lighter-2;
         }
       }
     }
@@ -279,7 +289,7 @@
 .collapsed {
   .services__content {
     width: 100%;
-    .services__title{
+    .services__title {
       display: none;
     }
     .services__list {
@@ -339,6 +349,7 @@
   }
 }
 
+
 .activity__status {
   min-width: 15px;
   min-height: 15px;
@@ -358,7 +369,7 @@
     animation: PulseActive 2s infinite;
   }
 }
-.services__content{
+.services__content {
   padding: 15px 0;
   border-top: 2px solid $_2k25-background-hue;
   border-bottom: 2px solid $_2k25-background-hue;
@@ -372,6 +383,7 @@
     .service__item {
       cursor: pointer;
       border-radius: 8px;
+          text-decoration: none !important;
 
       transition: 0.3s;
       padding: 5px 15px 5px 10px;
@@ -421,7 +433,6 @@
     }
   }
 }
-
 
 @media screen and (max-width: 1200px) {
   .nass__page {

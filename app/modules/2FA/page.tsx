@@ -211,6 +211,14 @@ export default function TwoFAPage({
                                         if (response.data.success) {
                                             setError(null);
                                             setState("verified");
+                                            // Redirect after 3 seconds
+                                            setTimeout(() => {
+                                                if (paramsResolved.redirect) {
+                                                    window.location.href = paramsResolved.redirect!;
+                                                } else {
+                                                    window.location.reload();
+                                                }
+                                            }, 3000);
                                         } else {
                                             setError("The provided code is incorrect. Please try again.");
                                         }
@@ -230,14 +238,7 @@ export default function TwoFAPage({
                         state === "verified" && (
                             <div className="verification__success">
                                 <h3>Verification Successful</h3>
-                                <p>Your identity has been successfully verified. You may now proceed with the requested action.</p>
-                                {paramsResolved.redirect && (
-                                    <button className="primary-button" onClick={() => {
-                                        window.location.href = paramsResolved.redirect!;
-                                    }}>
-                                        Continue
-                                    </button>
-                                )}
+                                <p>Your identity has been successfully verified. You will be redirected in a few moments.</p>
                             </div>
                         )
                     }

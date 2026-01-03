@@ -1,21 +1,23 @@
 const AccountUserBodyProfilePicture = ({
   profilePictureUrl,
-  altText,
+  firstName,
+  lastName,
 }: {
   profilePictureUrl: string | undefined;
-  altText?: string;
+  firstName?: string;
+  lastName?: string;
 }) => {
   return (
     <>
       {profilePictureUrl ? (
         <img
           src={profilePictureUrl}
-          alt={altText || "Profile picture"}
+          alt={`${firstName || ""} ${lastName || ""}`.trim() || "Profile picture"}
           className="profile-picture"
         />
       ) : (
         <div className="profile-picture placeholder">
-          {altText ? altText.charAt(0).toUpperCase() : "U"}
+          {firstName ? firstName.charAt(0).toUpperCase()+ (lastName ? lastName.charAt(0).toUpperCase() : "") : "U"}
         </div>
       )}
     </>
