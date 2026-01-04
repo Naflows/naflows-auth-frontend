@@ -14,6 +14,7 @@ import { AxiosError } from "axios";
 import { NotificationProvider } from "@/global/action-information/NotificationContent";
 import NotificationContainer from "@/global/action-information/NotificationContainer";
 import AccountDirectory from "../../components/service-directory";
+import SwitchServiceDirectoryIcon from "../../components/util/switch-service-directory-icon";
 
 const ServiceDataContext = createContext<{
     service: ServicesCompleteBodyProps | null;
@@ -41,7 +42,7 @@ export default function ServiceManagementPage({
 
 
     useEffect(() => {
-        if (!userFetch || !userFetch.id || !servicesFetch ) {
+        if (!userFetch || !userFetch.id || !servicesFetch) {
             console.log("User data not available yet in layout.");
             return;
         }
@@ -97,8 +98,20 @@ export default function ServiceManagementPage({
         <NotificationProvider>
             <ServiceDataContext.Provider value={{ service: serviceData, tab }} >
                 <div className="user__body__manage-service">
-                    <div className="account__services__manage__layout nass__service__page">
-                        <div className="service__overview__tabs">
+                    <div className="service__overview__tabs">
+                        <div className="service__small__view">
+                            <img src={serviceData?.banner || "/default-service-banner.png"} alt="Service Banner" className="service__banner" />
+                            <img src={serviceData?.picture || "/default-service-image.png"} alt="Service" className="service__small__view__image" />
+                            <div className="service__small__view__info">
+                                <div className="service__small__view__info__name">
+                                    {serviceData?.name || "Loading..."}
+                                </div>
+                                <a  href={serviceData?.dns} className="service__small__view__info__dns">
+                                    {serviceData?.dns || "Loading..."}
+                                </a>
+                            </div>
+                        </div>
+                        <div className="tabs__content">
                             {SERVICE_OVERVIEW_TABS.map((tab_) => (
                                 <button
                                     key={tab_.id}
@@ -110,10 +123,17 @@ export default function ServiceManagementPage({
                                         window.location.href = `/account/services/manage/${id}/${tab_.id}`;
                                     }}
                                 >
-                                    {tab_.label}
+                                    {SwitchServiceDirectoryIcon({ currentTab: tab_.id })}
+                                    <span>
+                                        {tab_.label}
+                                    </span>
                                 </button>
                             ))}
                         </div>
+                    </div>
+
+                    <div className="account__services__manage__layout nass__service__page">
+
                         <AccountDirectory service={serviceData} tab={tab} title={dirValues[tab]?.title || "Service Management"} description={dirValues[tab]?.description || ""} />
                         {children}
                     </div>

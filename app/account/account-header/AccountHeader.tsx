@@ -64,8 +64,8 @@ const AccountHeader = ({
       const nassPage = document.querySelector(".nass__page") as HTMLElement;
 
       if (nassPage) {
-        nassPage.style.paddingLeft = `${headerWidth + 50}px`;
-        nassPage.style.width = `calc(100% - ${headerWidth + 50}px)`;
+        nassPage.style.paddingLeft = `${headerWidth}px`;
+        nassPage.style.width = `calc(100vw - ${headerWidth}px)`;
       }
     };
 
