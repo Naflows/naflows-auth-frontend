@@ -1,14 +1,15 @@
-export type ServiceOverviewTabs = "settings" | "users" | "network" | "safety" | "logs" | "rights" | "overview";
-export type accountTabs = "overview" | "capacities" | "security" | "edit" | "network" | "settings" | "users" | "logs" | "rights" | "safety" | "share";
+export type ServiceOverviewTabs = "settings" | "users" | "network" | "safety" | "logs" | "rights" | "overview" | "data-monitoring";
+export type accountTabs = "overview" | "capacities" | "security" | "edit" | "network" | "settings" | "users" | "logs" | "rights" | "safety" | "share" | "data-monitoring";
 
 export const SERVICE_OVERVIEW_TABS: { id: ServiceOverviewTabs; label: string }[] = [
     { id : "overview", label: "Overview" },
     { id: "settings", label: "Settings" },
     { id: "users", label: "Users" },
+    { id: "data-monitoring", label: "Data Monitoring" },
     { id : "rights", label: "Rights" },
     { id: "network", label: "Network" },
     { id: "safety", label: "Safety" },
-    { id: "logs", label: "Logs" }
+    { id: "logs", label: "Logs" },
 ];
 
 
@@ -23,5 +24,6 @@ export const dirValues: Record<accountTabs, { title: string; description: string
   "logs": { title: "Service Logs", description: "View and analyze the logs associated with your service for monitoring and troubleshooting." },
   "rights": { title: "Service Rights", description: "Manage the rights and permissions associated with your service." },
   "safety": { title: "Service Safety", description: "Review and manage the safety settings of your service to ensure its integrity and reliability." },
-  "share": { title: "Share Service", description: "Share your service with others and manage sharing settings." }
+  "share": { title: "Share Service", description: "Share your service with others and manage sharing settings." },
+  "data-monitoring": { title: "Data Monitoring", description: "Monitor and analyze data related to your service for better insights and performance." }
 };

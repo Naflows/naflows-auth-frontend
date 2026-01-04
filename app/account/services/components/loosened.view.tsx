@@ -1,5 +1,6 @@
 import { ServicesCompleteBodyProps } from "@/types/ServicesCompleteProps";
 import "@/public/root/pages/services/manage/sub-components/ServiceDescription.scss";
+import Markdown from "react-markdown";
 
 
 const LegalButton = ({
@@ -91,7 +92,9 @@ const ServiceLoosenedView = ({
                     </div>
                   </div>
                   <div className="service__description__content">
-                    <p>{service.description || "No description provided."}</p>
+                    <Markdown>
+                      {service.description || ""}
+                    </Markdown>
                   </div>
                 </div>
               </div>
