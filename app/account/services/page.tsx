@@ -11,7 +11,7 @@ import CompactServiceDescription from "./components/compact.view";
 import Loader from "@/global/components/Loader";
 import { useAccountData } from "../layout";
 import { ServicesForUserProps } from '@/types/ServicesForUserProps';
-
+import "@/public/root/pages/account/sub-components/AccountUserBody.scss";
 
 
 const ServiceSVG = () => {
@@ -71,7 +71,7 @@ export default function ServicesInitPage() {
     }, [servicesType, searchQuery, userServices, userConnections]);
 
     return (
-        <div className="user__body__services">
+        <div className="nass__account__page_user__body" id="user__body__services">
 
             <Loader
                 loading={data.servicesLoaded === false}

@@ -1,0 +1,27 @@
+@import "../../../../variables.scss";
+
+.data-monitoring-page {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  height: fit-content;
+
+  #data-collection-section {
+    max-width: 30%;
+  }
+
+  #no-data-collection {
+    opacity: 0.7;
+    width: 100%;
+    font-size: 13px;
+  }
+
+  .data-collection-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -113,21 +113,19 @@ export default function ServiceManagementPage({
                         </div>
                         <div className="tabs__content">
                             {SERVICE_OVERVIEW_TABS.map((tab_) => (
-                                <button
+                                <a
                                     key={tab_.id}
                                     className={`tab ${tab === tab_.id ? "primary-button" : "secondary-button"}`}
                                     style={{
                                         width: "100%"
                                     }}
-                                    onClick={() => {
-                                        window.location.href = `/account/services/manage/${id}/${tab_.id}`;
-                                    }}
+                                    href={`/account/services/manage/${id}/${tab_.id}`}
                                 >
                                     {SwitchServiceDirectoryIcon({ currentTab: tab_.id })}
                                     <span>
                                         {tab_.label}
                                     </span>
-                                </button>
+                                </a>
                             ))}
                         </div>
                     </div>

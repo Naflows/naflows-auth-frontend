@@ -628,10 +628,14 @@
   width: calc(15% - 20px);
   max-width: 200px;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
   background-color: $_2k25-background-hue-darker;
   z-index: 5;
   border: 1px solid $_2k25-background-hue-50-transparent;
+  border-style: none solid none none;
+  position:sticky;
+  
+
   .service__small__view {
     width: 100%;
     position: relative;
@@ -691,7 +695,11 @@
     margin-top: 10px;
     width: 100%;
   }
-  button {
+  a {
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 10px;
+    width: calc(100% - 4px - 24px) !important;
     span {
       width: 100%;
       text-align: start;

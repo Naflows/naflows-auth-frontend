@@ -83,6 +83,8 @@ const AccountHeader = ({
     setPreferenceToLocalStorage("header-collapsed", collapsed ? "true" : "");
   }, [collapsed]);
 
+  useSessionValid();
+
   if (!userFetch) return null;
 
   return (
