@@ -1,5 +1,5 @@
 "use client";
-import { use, useEffect, useState, createContext, useContext } from "react";
+import { use, useEffect, useState, createContext, useContext, useRef } from "react";
 import { useAccountData } from "@/app/account/layout";
 import canUserAccessService from "@/scripts/pages/services/user/can-access";
 import fetchServiceData from "@/scripts/account/fetch-individual-service";
@@ -94,11 +94,21 @@ export default function ServiceManagementPage({
         };
     }, [id, userFetch, servicesFetch]);
 
+
+    const sideBarRef = useRef(null);
+    useEffect(() => {
+        // Ensure once loaded that the sidebar width fits the header width 
+        const header = document.querySelector('.nass__account__page__header');
+        if (header && sideBarRef.current) {
+            sideBarRef.current.style.left = `${header.clientWidth+1}px`;
+        }
+    }, []);
+
     return (
         <NotificationProvider>
             <ServiceDataContext.Provider value={{ service: serviceData, tab }} >
                 <div className="user__body__manage-service">
-                    <div className="service__overview__tabs">
+                    <div className="service__overview__tabs" ref={sideBarRef}>
                         <div className="service__small__view">
                             <img src={serviceData?.banner || "/default-service-banner.png"} alt="Service Banner" className="service__banner" />
                             <img src={serviceData?.picture || "/default-service-image.png"} alt="Service" className="service__small__view__image" />

@@ -58,7 +58,7 @@ interface ServicesForUserProps {
     allow_user_registration: boolean; // Whether the service allows user registration or not
     allow_service_connection: boolean; // Whether the service allows connection from other services or not
     allow_public_visibility: boolean; // Whether the service is visible in the public services list or not
-    required_data?: UserDataPreferences["personal_data"]; // What personal data is required for a user to register in the service
+    required_data?: string[]; // What personal data is required for a user to register in the service
   },
   is_user_developer: boolean; // Whether the user is a developer of the service
   details: {

@@ -64,6 +64,19 @@ const AccountHeader = ({
       const nassPage = document.querySelector(".nass__page") as HTMLElement;
 
       if (nassPage) {
+        const serviceBar = document.querySelector(".service__overview__tabs");
+        const serviceBarWidth = (serviceBar?.clientWidth) || window.innerWidth*0.15 - 20; // Approximate 15% width
+
+        // Adjust for service bar if on service management page
+        if (window.location.pathname.startsWith("/account/services/manage/")) {
+          nassPage.style.paddingLeft = `${headerWidth + serviceBarWidth}px`;
+          nassPage.style.width = `calc(100vw - ${headerWidth + serviceBarWidth + 20}px)`;
+          if (serviceBar) {
+            serviceBar.setAttribute("style", `left: ${headerWidth}px;`);
+          }
+          return;
+        }
+
         nassPage.style.paddingLeft = `${headerWidth}px`;
         nassPage.style.width = `calc(100vw - ${headerWidth}px)`;
       }

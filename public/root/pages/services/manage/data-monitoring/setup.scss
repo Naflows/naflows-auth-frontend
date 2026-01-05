@@ -9,10 +9,12 @@
     border: 1px solid $_2k25-background-hue-50-transparent;
     &:not(.active) {
       opacity: 0.7;
-      pointer-events: none;
       .step__content {
         display: none;
       }
+    }
+    &.completed {
+      cursor: pointer !important;
     }
 
     .buttons-container {
@@ -122,14 +124,16 @@
       font-size: 13px;
       opacity: 0.8;
     }
-    .data-policy-includes, .data-policy-does-not-includes {
+    .data-policy-includes,
+    .data-policy-does-not-includes {
       display: flex;
       flex-direction: column;
       p {
         font-size: 14px;
         opacity: 0.7;
       }
-      .includes-list, .does-not-includes-list {
+      .includes-list,
+      .does-not-includes-list {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;

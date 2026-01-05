@@ -609,7 +609,7 @@
   }
 }
 
-.service__overview__tabs,
+
 .service__management__header {
   margin-left: auto;
   margin-right: auto;
@@ -626,14 +626,18 @@
   align-items: center;
   justify-content: start;
   width: calc(15% - 20px);
-  max-width: 200px;
+  max-width: calc(15% - 20px);
   padding: 10px;
-  border-radius: 10px 10px 0 0;
+  align-self: stretch;
+  border-radius: 0;
   background-color: $_2k25-background-hue-darker;
   z-index: 5;
   border: 1px solid $_2k25-background-hue-50-transparent;
   border-style: none solid none none;
-  position:sticky;
+  position:fixed;
+  height: 100vh;
+  top: 0px;
+  transition: 0.3s;
   
 
   .service__small__view {

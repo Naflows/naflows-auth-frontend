@@ -24,7 +24,7 @@ export interface ServicesBodyProps {
     created_at: number;
     is_user_developer?: boolean;
     public_settings?: {
-        required_data?: Array<"PHONE" | "EMAIL" | "FIRST AND LAST NAME" | "ADDRESS" | "BIRTHDATE" | "ACCOUNT SECURITY MEASURES" | "BILLING DETAILS">; // What personal data is required for a user to register in the service
+        required_data?: string[]; // Data categories required by the service
         allow_public_visibility: boolean; // Whether the service is publicly visible in the Naflows services directory
     }; // Public settings of the service, optional and may be omitted for non-admin users
     details: {

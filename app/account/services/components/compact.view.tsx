@@ -1,6 +1,7 @@
 
 import { ServicesBodyProps } from "@/types/ServicesBodyProps";
 import "@/public/root/pages/services/manage/sub-components/CompactServiceDescription.scss";
+import Markdown from "react-markdown";
 
 const CompactServiceDescription = ({
     service,
@@ -70,9 +71,9 @@ const CompactServiceDescription = ({
                                 </span>
                             </div>
                         </div>
-                        <p>
+                        <Markdown>
                             {service.description || "No description provided."}
-                        </p>
+                        </Markdown>
                     </div>
 
                 </div>

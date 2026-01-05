@@ -3,8 +3,15 @@
 import { JSX, useEffect, useState } from "react";
 import switchDataMonitoringSetupSteps from "./utils/switchStep";
 import '@/public/root/pages/services/manage/data-monitoring/setup.scss';
+import { setPolicies } from "@/scripts/pages/services/post/set-policies";
+import { useServiceData } from "../../layout";
+import Loader from "@/global/components/Loader";
+import Alert from "@/global/error-alert/Alert";
 
 export default function DataMonitoringSetupPage() {
+
+    const serviceData = useServiceData();
+    const service = serviceData?.service;
 
     const steps = ["introduction", "policy-setup", "review"] as const;
 
@@ -20,20 +27,41 @@ export default function DataMonitoringSetupPage() {
     }>(switchDataMonitoringSetupSteps(step, { servicePolicies, setServicePolicies }));
 
     useEffect(() => {
+        if (service && service.public_settings && service.public_settings.required_data) {
+            setServicePolicies(service.public_settings.required_data);
+        }
+    }, [service])
+
+    useEffect(() => {
         console.log("Current Step:", step);
         setStepValue(switchDataMonitoringSetupSteps(step, { servicePolicies, setServicePolicies }));
     }, [step, servicePolicies]);
 
+    if (!service) {
+        return <Loader loading={true} title="Loading Policies Setup" message="Please wait while we fetch the service information." />;
+    }
+
     return (
         <div className="user__body__section " id="data-monitoring-setup-page">
+
+
+
+
             {steps.map((s) => {
                 const nextStepIndex = steps.indexOf(s) + 1;
                 const isNextStepAvailable = nextStepIndex < steps.length;
                 return (<div
                     key={s}
-                    className={`data-monitoring-setup-step ${step === s ? "active" : ""}`}
+                    className={`data-monitoring-setup-step ${step === s ? "active" : ""} ${steps.indexOf(s) < steps.indexOf(step) ? "completed" : ""}`}
                 >
-                    <div className="step__header" onClick={() => setStep(s)}>
+                    <div className="step__header" onClick={() => {
+                        const currentStepIndex = steps.indexOf(step);
+                        const clickedStepIndex = steps.indexOf(s);
+                        if (clickedStepIndex <= currentStepIndex) {
+                            setStep(s);
+                            setStepValue(switchDataMonitoringSetupSteps(s, { servicePolicies, setServicePolicies }));
+                        }
+                    }}>
                         <div className="step__number">
                             {switchDataMonitoringSetupSteps(s).number}
                         </div>
@@ -66,15 +94,17 @@ export default function DataMonitoringSetupPage() {
                             }
 
 
-                            <button className="primary-button" onClick={() => {
-                                console.log("Next Step Clicked");
-                                console.log("isNextStepAvailable:", isNextStepAvailable);
+                            <button className="primary-button" onClick={async () => {
                                 if (isNextStepAvailable) {
-                                    console.log("Moving to next step:", steps[nextStepIndex]);
                                     setStep(steps[nextStepIndex]);
-                                    setStepValue(switchDataMonitoringSetupSteps(steps[nextStepIndex]));
+                                    setStepValue(switchDataMonitoringSetupSteps(steps[nextStepIndex], { servicePolicies, setServicePolicies }));
                                 } else {
-                                    alert("Data Monitoring Setup Completed!");
+                                    // Finish Setup
+                                    const result = await setPolicies(service.id, servicePolicies);
+                                    if (result.success) {
+                                        // Redirect to data monitoring page
+                                        window.location.href = `/account/services/manage/${service.id}/data-monitoring`;
+                                    }
                                 }
                             }}>
                                 <span>{isNextStepAvailable ? "Next Step" : "Finish Setup"}</span>

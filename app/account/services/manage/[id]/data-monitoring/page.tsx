@@ -3,6 +3,8 @@ import Loader from "@/global/components/Loader";
 import { useServiceData } from "../layout";
 import '@/public/root/pages/services/manage/data-monitoring/index.scss';
 import DataMonitoringNoDataSet from "./components/collected-data/no-data";
+import ServiceDataMonitoringPolicy from "./components/collected-data/data-set";
+import { categories } from "./setup/utils/policies";
 
 export default function DataMonitoringPage() {
 
@@ -33,6 +35,8 @@ export default function DataMonitoringPage() {
 
                 <div className="data-collection-content global__container">
                     <DataMonitoringNoDataSet display={service?.public_settings?.required_data?.length === 0} />
+
+                    <ServiceDataMonitoringPolicy policies={service?.public_settings?.required_data || []} />
 
                     <button className="primary-button width-100-auto" onClick={() => {
                         // Go to ./setup/
