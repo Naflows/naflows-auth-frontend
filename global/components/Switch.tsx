@@ -6,6 +6,7 @@ const Switch = ({
     onChange, description,
     mandatory = false,
     additionalClass = "",
+    loading = false,
     disabled = false,
 }: {
     label: string;
@@ -14,6 +15,7 @@ const Switch = ({
     description: string | React.ReactNode;
     mandatory?: boolean;
     additionalClass?: string;
+    loading?: boolean;
     disabled?: boolean;
 }) => {
     const [ch, setChecked] = useState<boolean>(checked ? checked : false);
@@ -39,6 +41,13 @@ const Switch = ({
                 <h5>
                     <span>{label}</span>
                     <span className={`nass_switch__label__state ${ch ? "nass_switch__label__state--on" : "nass_switch__label__state--off"}`}>{ch ? "On" : "Off"}</span>
+
+                    {loading && (
+                        <div className="loader__container">
+                            <div className="small-loader"></div>
+                        </div>
+                    )}
+
                     {mandatory && <span className={`nass_switch__label__mandatory ${!ch ? "nass_switch__label__mandatory--inactive" : ""}`}>*</span>}
                 </h5>
                 <p>{description}</p>

@@ -6,7 +6,9 @@ import UnauthorizedAccess from "@/global/components/Unauthorized";
 import { useServiceData } from "../layout";
 import "@/public/root/pages/services/manage/sub-components/settings/index.scss";
 import requestExists from "@/scripts/modules/2FA/request-exists";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNotification } from "@/global/action-information/NotificationContent";
+import { saveGeneralSettings } from "@/scripts/pages/services/post/save-general-settings";
 
 const Tile = ({ title, description, children, badge, displayBadge }: { title: string; description: string; children: React.ReactNode, badge?: React.ReactNode, displayBadge?: boolean }) => {
 
@@ -29,9 +31,31 @@ const Tile = ({ title, description, children, badge, displayBadge }: { title: st
 
 export default function ServiceSettings() {
 
-    const { service } = useServiceData() || {};
+    const serviceData = useServiceData();
+    const { service, setService } = serviceData;
+    const { addNotification } = useNotification();
+
+    const [loadingSwitch, setLoadingSwitch] = useState<"backup_enabled" | "allow_user_registration" | "">("");
 
     const [onFetchLoading, setOnFetchLoading] = useState<string>("");
+
+    const [switchStatus, setSwitchStatus] = useState<{
+        backup_enabled: boolean;
+        allow_user_registration: boolean;
+    }>({
+        backup_enabled: service?.backup_enabled || false,
+        allow_user_registration: service?.public_settings?.allow_user_registration || false,
+    });
+    const [finishCurrent, setFinishCurrent] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (service) {
+            setSwitchStatus({
+                backup_enabled: service.backup_enabled || false,
+                allow_user_registration: service.public_settings?.allow_user_registration || false,
+            });
+        }
+    }, [service])
 
     if (service) {
         console.log("Rendering ServiceSettings with service:", service);
@@ -59,10 +83,68 @@ export default function ServiceSettings() {
                                 description="Automatically back up your service data at regular intervals."
                             >
                                 <Switch
-                                    id="enable-backups-toggle"
-                                    label="Enable Backups"
+                                    label=""
+                                    description={""}
+                                    loading={loadingSwitch === "backup_enabled"}
                                     checked={service.backup_enabled || false}
-                                    onChange={() => { /* Implement toggle logic here */ }}
+                                    onChange={(checked) => {
+                                        if (checked != service.public_settings.backup_enabled) {
+                                            // Implement toggle logic here
+                                        }
+                                    }}
+                                    additionalClass="row-reverse"
+                                />
+                            </Tile>
+                            <Tile
+                                title="Enable Public Registration"
+                                description="Allow users to register for this service without an invitation."
+                            >
+                                <Switch
+                                    label=""
+                                    description=""
+                                    checked={service.public_settings?.allow_user_registration}
+                                    loading={loadingSwitch === "allow_user_registration"}
+                                    onChange={async (checked) => {
+                                        const newCheck = checked;
+                                        console.log("Toggled allow_user_registration to:", checked, "loadingSwitch:", loadingSwitch, "finishCurrent:", finishCurrent);
+                                        if (service.public_settings?.allow_user_registration != newCheck && loadingSwitch != "allow_user_registration") {
+                                            setFinishCurrent(true);
+                                            setLoadingSwitch("allow_user_registration");
+                                            console.log("Toggling allow_user_registration to:", checked);
+                                            const res = await saveGeneralSettings(service.id, {
+                                                ...service.public_settings,
+                                                allow_user_registration: checked
+                                            });
+                                            if (res.success) {
+                                                addNotification({
+                                                    type: "info",
+                                                    title: "Settings Updated",
+                                                    description: `Public registration has been ${checked ? "enabled" : "disabled"}.`
+                                                });
+                                                setService!({
+                                                    ...service,
+                                                    public_settings: {
+                                                        ...service.public_settings,
+                                                        allow_user_registration: checked
+                                                    }
+                                                });
+                                                setLoadingSwitch("");
+                                            } else {
+                                                addNotification({
+                                                    type: "error",
+                                                    title: "Update Failed",
+                                                    description: res.message || "Failed to update public registration setting."
+                                                });
+                                                setSwitchStatus(prev => ({
+                                                    ...prev,
+                                                    allow_user_registration: checked
+                                                }));
+                                                setLoadingSwitch("");
+                                            }
+                                            setFinishCurrent(false);
+                                        }
+                                    }}
+                                    additionalClass="row-reverse"
                                 />
                             </Tile>
                         </div>

@@ -19,7 +19,7 @@ import SwitchServiceDirectoryIcon from "../../components/util/switch-service-dir
 const ServiceDataContext = createContext<{
     service: ServicesCompleteBodyProps | null;
     tab: ServiceOverviewTabs;
-    setService?: React.Dispatch<React.SetStateAction<ServicesCompleteBodyProps | null>>;
+    setService: React.Dispatch<React.SetStateAction<ServicesCompleteBodyProps | null>>;
 } | null>(null);
 
 export function useServiceData() {
@@ -106,7 +106,7 @@ export default function ServiceManagementPage({
 
     return (
         <NotificationProvider>
-            <ServiceDataContext.Provider value={{ service: serviceData, tab }} >
+            <ServiceDataContext.Provider value={{ service: serviceData, tab, setService: setServiceData }} >
                 <div className="user__body__manage-service">
                     <div className="service__overview__tabs" ref={sideBarRef}>
                         <div className="service__small__view">

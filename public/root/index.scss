@@ -122,8 +122,19 @@ body {
   gap: 10px;
   width: calc(100% - 2px - 40px);
 
+  .global__disclaimer__set__content {
+    display:flex;
+    flex-direction: column;
+    gap: 5px;
+  }
 
   backdrop-filter: blur(5px);
+
+  &.row-display {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   &.max-width {
     max-width: calc(100% - 4px - 40px) !important;
@@ -367,6 +378,28 @@ textarea {
   gap: 30px;
   cursor: pointer;
 
+  &.row-reverse {
+    flex-direction: row-reverse;
+    gap: 10px;
+    .nass_switch__label h5 {
+      display: flex;
+      gap: 10px;
+      flex-direction: row-reverse;
+      width: 100%;
+    }
+  }
+
+  .nass_switch__label {
+    .loader__container {
+      margin: auto 0;
+      margin-top: 4px;
+      .small-loader {
+        width: 20px;
+        height: 20px;
+      }
+    } 
+  }
+
   * {
     user-select: none;
   }
@@ -447,6 +480,8 @@ textarea {
       color: $da-secondary-hue-lighter-2;
       height: fit-content;
       min-height: 25px;
+      display: flex;
+      align-items: center;
 
       .nass_switch__label__state {
         font-size: 12px;

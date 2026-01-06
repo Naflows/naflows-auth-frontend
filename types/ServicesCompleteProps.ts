@@ -16,13 +16,19 @@ export interface ServicesCompleteBodyProps {
     data_preferences: {
         usage_data: "NONE" | "BASIC" | "FULL"; // Level of usage data the service can access
         personal_data: Array<"PHONE" | "EMAIL" | "FIRST AND LAST NAME" | "ADDRESS" | "BIRTHDATE" | "ACCOUNT SECURITY MEASURES" | "BILLING DETAILS">;
+
     }; // Data preferences of the service
     picture: string; // URL to the service picture
     banner: string; // URL to the service banner
     status: "ACTIVE" | "INACTIVE" | "DEPRECATED"; // Status of the service
-    public_settings?: {
-        required_data?: Array<"PHONE" | "EMAIL" | "FIRST AND LAST NAME" | "ADDRESS" | "BIRTHDATE" | "ACCOUNT SECURITY MEASURES" | "BILLING DETAILS">; // What personal data is required for a user to register in the service
-    }; // Public settings of the service, optional and may be omitted for non-admin users
+    public_settings: {
+        allow_user_registration: boolean; // Whether the service allows user registration or not
+        allow_service_connection: boolean; // Whether the service allows connection from other services or not
+        allow_public_visibility: boolean; // Whether the service is visible in the public services list or not
+        required_data?: string[]; // What personal data is required for a user to register in the service
+        user_data_preferences?: string[]; // What personal data the user allows the service to use based on required_data
+        backup_enabled?: boolean; // Whether the service has backups enabled or not
+    },
     details: {
         users: number; // Number of users in the service
         official: boolean; // Whether the service is verified or not
@@ -36,15 +42,15 @@ export interface ServicesCompleteBodyProps {
         },
         public: {
             privacy_policy_url?: {
-                approved : boolean;
+                approved: boolean;
                 value: string;
             };
             terms_of_service_url?: {
-                approved : boolean;
+                approved: boolean;
                 value: string;
             };
             contact_email?: {
-                approved : boolean;
+                approved: boolean;
                 value: string;
             };
         },
