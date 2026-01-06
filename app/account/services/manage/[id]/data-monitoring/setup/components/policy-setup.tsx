@@ -1,11 +1,12 @@
 import React, { JSX, useState } from "react";
 import { availableDataPolicies, categories } from "../utils/policies";
+import DataPolicyItem from "../../components/global/data-policy-item";
 
 
 
 interface PolicySetupComponentProps {
     servicePolicies: string[];
-    setServicePolicies: (policies: string[]) => void;
+    setServicePolicies: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export default function PolicySetupComponent({
@@ -54,45 +55,12 @@ export default function PolicySetupComponent({
                         </div>
                         <div className="data-policies-list">
                             {availableDataPolicies.filter(policy => policy.category === category).map(policy => (
-                                <div key={policy.id} className={`data-policy-item ${servicePolicies.includes(policy.id) ? "selected" : ""
-                                    }`} onClick={() => {
-                                        if (servicePolicies.includes(policy.id)) {
-                                            setServicePolicies(servicePolicies.filter(id => id !== policy.id));
-                                        } else {
-                                            setServicePolicies([...servicePolicies, policy.id]);
-                                        }
-                                    }}>
-                                    <div className="data-policy-header">
-                                        <div className="data-policy-icon">
-                                            {policy.icon}
-                                        </div>
-                                        <h5>{policy.name}</h5>
-                                    </div>
-                                    <div className="data-policy-info">
-                                        <p>{policy.description}</p>
-
-                                        <div className="data-policy-includes">
-                                            <p>Includes</p>
-                                            <div className="includes-list">
-                                                {policy.includes.map((include, index) => (
-                                                    <span key={index}>{include.charAt(0).toUpperCase() + include.slice(1)}</span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                        <div className="data-policy-does-not-includes">
-                                            <p>Does Not Include</p>
-                                            <div className="does-not-includes-list">
-                                                {policy.doesNotIncludes?.length === 0 ? (
-                                                    <span>None</span>
-                                                ) : (
-                                                    policy.doesNotIncludes?.map((dnInclude, index) => (
-                                                        <span key={index}>{dnInclude.charAt(0).toUpperCase() + dnInclude.slice(1)}</span>
-                                                    ))
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <DataPolicyItem 
+                                    key={policy.id}
+                                    policy={policy}
+                                    servicePolicies={servicePolicies}
+                                    setServicePolicies={setServicePolicies}
+                                />
                             ))}
                         </div>
                     </div>

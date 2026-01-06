@@ -4,11 +4,96 @@ import { dateToTimespan } from "@/scripts/utils/dateToTimespan";
 import JoinServiceDisclaimer from "./components/disclaimer";
 import { useJoinServiceData } from "./layout";
 import '@/public/root/pages/services/join/index.scss';
+import Markdown from "react-markdown";
+import { availableDataPolicies, DataPolicy } from "../../manage/[id]/data-monitoring/setup/utils/policies";
+import { useState } from "react";
+import DataPolicyDetails from "./components/disclaimer/data-policy-details";
+import '@/public/root/pages/services/manage/data-monitoring/index.scss';
+import Switch from "@/global/components/Switch";
+
+
+export function SmallPolicyComponent({
+    value, title, description, accepted, policyValue, onChange
+}: {
+    value: string;
+    title: string;
+    description: string;
+    accepted?: boolean;
+    policyValue: string;
+    onChange?: () => void;
+}) {
+
+    const [displayValue, setDisplayValue] = useState(false);
+
+    return (
+        <>
+
+            <div className="policy__value__override" style={{ display: displayValue ? "flex" : "none" }}>
+                <div className="policy__value__override__content">
+                    <div className="policy__value__header">
+                        <h4>{title}</h4>
+                        <p className="policy__description">{description}</p>
+                    </div>
+                    <div className="markdown">
+                        <Markdown>{policyValue}</Markdown>
+                    </div>
+
+
+                    <div className="buttons-container">
+                        <Switch
+                            label="I agree to the above policy"
+                            checked={accepted || false}
+                            onChange={(c) => {
+                                if (c != accepted && onChange) {
+                                    onChange();
+                                }
+                            }}
+                            description="By agreeing, you consent to the terms outlined in the policy above."
+                        />
+                        <button className="secondary-button width-100-auto" onClick={() => {
+                            setDisplayValue(false);
+                        }}>
+                            <span>Close</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div className="policy__component_small">
+                <div className="policy__content">
+                    <div className="policy__content__description">
+                        <h4>{title}</h4>
+                        <p className="policy__description">{description}</p>
+                    </div>
+                    <p className={`policy__value ${accepted ? "accepted" : "not-accepted"}`}>{value}</p>
+
+                </div>
+
+                <button className="secondary-button" onClick={() => {
+                    setDisplayValue(true);
+                }}>
+                    <span>Review</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+                        <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </>
+    )
+}
+
 
 export default function JoinServicePage() {
 
     const { service } = useJoinServiceData() || {};
+
+    const [learnMoreOpen, setLearnMoreOpen] = useState<DataPolicy | null>(null);
     console.log("Rendering JoinServicePage with service:", service);
+
+
+    const [consentGiven, setConsentGiven] = useState<{
+        [key: string]: boolean;
+    }>({});
 
     if (!service) {
         return (
@@ -21,6 +106,10 @@ export default function JoinServicePage() {
     return (
         <div className="account__service__join" id={service.id}>
             <JoinServiceDisclaimer nassOwned={service.details.official} />
+
+
+            <DataPolicyDetails setPolicy={setLearnMoreOpen} policy={learnMoreOpen} />
+
             <div className="join__box__presentation">
                 <img src={service.banner} alt={`${service.name} banner`} className="service__banner__image" />
                 <div className="service__picture__container">
@@ -59,12 +148,91 @@ export default function JoinServicePage() {
                         </div>
                     </div>
                     <div className="service__description__content">
-                        <p>{service.description || "No description provided."}</p>
+                        <Markdown>{service.description || "No description provided."}</Markdown>
                     </div>
                 </div>
 
+                <div className={`global__information__section ${consentGiven["required_data"] ? "highlighted" : "consent-not-given"}`}>
+                    <div className="information__content">
+                        <div className="information__content__header">
+                            <h2>Data Sharing Information</h2>
+                            <p>This service requires Naflows to provide the following data in order to function properly. Please make sure you review and consent to the use of this data.</p>
+                        </div>
+                        <div className="data__sharing__content">
+                            {service.public_settings?.required_data?.map((dataItem) => {
+                                const data = availableDataPolicies.find(d => d.id === dataItem);
+                                return (
+                                    <div key={dataItem} className={`data__item`} onClick={() => {
+                                        setLearnMoreOpen(data || null);
+                                    }}>
+                                        <div className="data__item__info">
+                                            <div className="data__item__content">
+                                                {data?.icon}
+
+                                                <h5>{data?.name || dataItem}</h5>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                    <Switch
+                        label="I consent to the use of the required data for this service"
+                        checked={!!consentGiven["required_data"]}
+                        onChange={(checked) => {
+                            if (checked != consentGiven["required_data"]) {
+                                setConsentGiven(prev => ({
+                                    ...prev,
+                                    "required_data": checked
+                                }));
+                            }
+                        }}
+                        description="I allow this service to collect and use the required data as outlined above in order to provide its functionality. I may withdraw my consent for some or all of this data at any time through my account settings."
+                    />
+                </div>
 
 
+                <div className={`global__information__section ${(consentGiven["terms_of_service_required"] && consentGiven["policies_required"]) ? "highlighted" : "consent-not-given"}`}>
+                    <div className="information__content">
+                        <div className="information__content__header">
+                            <h2>Service Policies Agreement</h2>
+                            <p>This service has specific policies regarding data usage and privacy. Please review and agree to these policies to continue using the service.</p>
+                        </div>
+                        <div className="data__sharing__content">
+                            <SmallPolicyComponent
+                                title="Service Policies Agreement"
+                                description="I have read and agree to the service's data policies."
+                                value={consentGiven["policies_required"] ? "Agreed" : "Not Agreed"}
+                                accepted={consentGiven["policies_required"]}
+                                policyValue={service.details.public.privacy_policy_url?.value || "No policy provided."}
+                                onChange={() => {
+                                    setConsentGiven(prev => ({
+                                        ...prev,
+                                        "policies_required": !prev["policies_required"]
+                                    }));
+                                }}
+                            />
+                            <SmallPolicyComponent
+                                title="Terms of Service Agreement"
+                                description="I have read and agree to the service's terms of service."
+                                value={consentGiven["terms_of_service_required"] ? "Agreed" : "Not Agreed"}
+                                accepted={consentGiven["terms_of_service_required"]}
+                                policyValue={service.details.public.terms_of_service_url?.value || "No policy provided."}
+                                onChange={() => {
+                                    setConsentGiven(prev => ({
+                                        ...prev,
+                                        "terms_of_service_required": !prev["terms_of_service_required"]
+                                    }));
+                                }}
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

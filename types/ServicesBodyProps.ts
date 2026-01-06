@@ -37,10 +37,20 @@ export interface ServicesBodyProps {
             verified: boolean;
             first_name?: string;
             last_name?: string;
-        }
-    }, public: {
-        privacy_policy_url?: string;
-        terms_of_service_url?: string;
-        contact_email?: string;
-    }
+        },
+        public: {
+            privacy_policy_url?: {
+                approved: boolean;
+                value: string;
+            };
+            terms_of_service_url?: {
+                approved: boolean;
+                value: string;
+            };
+            contact_email?: {
+                approved: boolean;
+                value: string;
+            };
+        },
+    },
 }

@@ -2,6 +2,16 @@ import { JSX } from "react";
 
 type categories = 'personal' | 'usage' | 'technical';
 
+export type DataPolicy = {
+    id: string;
+    name: string;
+    description: string;
+    category: categories;
+    icon: JSX.Element;
+    includes: string[];
+    doesNotIncludes? : string[]
+}
+
 const availableDataPolicies: {
     id: string;
     name: string;

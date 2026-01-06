@@ -26,6 +26,84 @@
   }
 }
 
+.data-policy-item {
+  // Width should make so each row has 3 items with a gap of 10px between them
+  width: calc(32% - 40px);
+  padding: 20px;
+  border: 1px solid $_2k25-background-hue-50-transparent;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: 0.3s;
+  &:not(.no-hover) {
+    cursor: pointer;
+  }
+  &:not(.no-hover):hover {
+    background-color: $da-secondary-hue-transparent;
+    border-color: $da-secondary-hue-lighter;
+  }
+  &.selected {
+    border-color: $da-secondary-hue-transparent;
+    background-color: $da-secondary-hue-transparent;
+  }
+  .data-policy-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    p {
+      margin: 0;
+      font-size: 13px;
+      opacity: 0.8;
+    }
+    .data-policy-includes,
+    .data-policy-does-not-includes {
+      display: flex;
+      flex-direction: column;
+      p {
+        font-size: 14px;
+        opacity: 0.7;
+      }
+      .includes-list,
+      .does-not-includes-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-top: 5px;
+        span {
+          font-size: 12px;
+          background-color: $_2k25-background-hue-50-transparent;
+          padding: 3px 6px;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+  .data-policy-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    h5 {
+      margin: 0;
+      font-size: 16px;
+    }
+    .data-policy-icon {
+      width: 20px;
+      height: 20px;
+      padding: 5px;
+      border-radius: 5px;
+      background-color: $da-secondary-hue-lighter-2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $_2k25-background-hue-darker;
+    }
+  }
+}
+
+
 #data-set-component {
   h4 {
     margin: 0;

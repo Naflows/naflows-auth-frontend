@@ -7,6 +7,7 @@ import { setPolicies } from "@/scripts/pages/services/post/set-policies";
 import { useServiceData } from "../../layout";
 import Loader from "@/global/components/Loader";
 import Alert from "@/global/error-alert/Alert";
+import '@/public/root/pages/services/manage/data-monitoring/index.scss';
 
 export default function DataMonitoringSetupPage() {
 
