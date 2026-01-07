@@ -38,6 +38,11 @@ export interface ServicesBodyProps {
             first_name?: string;
             last_name?: string;
         },
+        naflows_allows_registration? :{
+            approved: boolean;
+            message: boolean;
+        },
+
         public: {
             privacy_policy_url?: {
                 approved: boolean;

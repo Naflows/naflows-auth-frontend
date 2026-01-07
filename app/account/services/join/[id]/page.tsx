@@ -10,7 +10,27 @@ import { useState } from "react";
 import DataPolicyDetails from "./components/disclaimer/data-policy-details";
 import '@/public/root/pages/services/manage/data-monitoring/index.scss';
 import Switch from "@/global/components/Switch";
+import { ServiceRegistrationNotAllowedDisclaimer } from "./components/disclaimer/registration-not-allowed";
 
+
+export function SmallAlertBadge({
+    title, link, appears, type
+}: {
+    title: string;
+    link: string;
+    appears: boolean;
+    type?: "warning" | "info";
+}) {
+    if (appears === false) {
+        return null;
+    }
+
+    return (
+        <a href={link} className={`small-alert-badge ${type ? `small-alert-badge--${type}` : ""}`} target="_blank" rel="noopener noreferrer">
+            <span>{title}</span>
+        </a>
+    )
+}
 
 export function SmallPolicyComponent({
     value, title, description, accepted, policyValue, onChange
@@ -98,15 +118,13 @@ export default function JoinServicePage() {
     if (!service) {
         return (
             <div className="account__services__join__page">
-                Loading service data...
+                <span className="small-loader"></span>
             </div>
         );
     }
 
     return (
         <div className="account__service__join" id={service.id}>
-            <JoinServiceDisclaimer nassOwned={service.details.official} />
-
 
             <DataPolicyDetails setPolicy={setLearnMoreOpen} policy={learnMoreOpen} />
 
@@ -146,9 +164,33 @@ export default function JoinServicePage() {
                                 {service.details.users} user{service.details.users > 1 ? "s" : ""}
                             </span>
                         </div>
+                        <div className="alerts">
+                            <SmallAlertBadge
+                                title="Service is not reviewed by Naflows yet"
+                                link={`https://${service.dns}/privacy-policy#unreviewed-service`}
+                                appears={!service.details.official}
+                                type="warning"
+                            />
+                            <SmallAlertBadge
+                                title="Third-Party Service"
+                                appears={!service.details.official}
+                                link={`https://${service.dns}/privacy-policy#third-party-service`}
+                                type="info"
+                            />
+                        </div>
                     </div>
+
                     <div className="service__description__content">
                         <Markdown>{service.description || "No description provided."}</Markdown>
+                    </div>
+                </div>
+
+                <div className="global__information__section">
+                    <div className="information__content">
+                        <div className="information__content__header">
+                            <h2>Support</h2>
+                            <p>{service.name} provides the following support email for any questions. Please <a href={`/support/${service.id}`}>contact support</a> for assistance.</p>
+                        </div>
                     </div>
                 </div>
 
@@ -232,6 +274,17 @@ export default function JoinServicePage() {
                             />
                         </div>
                     </div>
+                </div>
+
+
+                <div className="global__information__section">
+                    <button className="primary-button">
+                        <span>Join {service.name}</span>
+                    </button>
+
+                    <p className="information__content__header__description">
+                        Naflows may ask for an additional 2FA verification when joining new services for security purposes.
+                    </p>
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 'use client';
 import { useAccountData } from "@/app/account/layout";
+import Loader from "@/global/components/Loader";
 import { getPublicServiceInformations } from "@/scripts/pages/services/get/get-public-infos";
 import { ServicesBodyProps } from "@/types/ServicesBodyProps";
 import { createContext, use, useContext, useEffect, useState } from "react";
@@ -64,12 +65,16 @@ export default function JoinServiceLayout({
         };
     }, [userFetch, id])
 
+
     
 
     return (
         <JoinServiceData.Provider value={{ service: service }}>
             <div className="account__services__join__layout">
                 {children}
+
+
+
             </div>
         </JoinServiceData.Provider>
     );
