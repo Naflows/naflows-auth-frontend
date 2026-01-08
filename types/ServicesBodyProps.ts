@@ -23,6 +23,7 @@ export interface ServicesBodyProps {
     user_active: boolean; // Whether the user's account in the service is active
     created_at: number;
     is_user_developer?: boolean;
+    approed?: boolean;
     public_settings?: {
         required_data?: string[]; // Data categories required by the service
         allow_public_visibility: boolean; // Whether the service is publicly visible in the Naflows services directory

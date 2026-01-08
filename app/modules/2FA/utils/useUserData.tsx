@@ -21,8 +21,11 @@ export const useUserData = ({
                 const userData = await fetchData("user");
                 if (ignore) return;
 
+                const wholeURL = new URL(window.location.href);
+                
+
                 if (userData.data.success === false) {
-                    router.push(`/auth?redirect=${pathname}`);
+                    router.push(`/auth?redirect=${wholeURL}`);
                     console.error("Failed to fetch user info", userData.data);
                     return;
                 }

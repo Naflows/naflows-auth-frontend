@@ -40,13 +40,14 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    min-width: 50%;
+    align-items: center;
+    gap: 10px;
     h3,
     p {
       margin: 0;
       padding: 0;
     }
-    border: 1px solid $da-warning-hue;
-    background-color: $da-warning-hue-transparent;
     color: $da-warning-hue;
   }
   .two-fa__module__error {
@@ -107,6 +108,19 @@
   width: fit-content;
 
   gap: 15px;
+
+  .default__avatar__placeholder {
+    color : $da-secondary-hue-lighter-2;
+    min-width: 40px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $_2k25-background-hue-50-transparent;
+    border: 1px solid $_2k25-background-hue-50-transparent;
+    border-radius: 50%;
+  }
+
   img {
     height: 40px;
     width: 40px;
@@ -117,6 +131,10 @@
     flex-direction: column;
     #user-full-name {
       font-weight: 600;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     #user-email {
       font-size: 0.9rem;

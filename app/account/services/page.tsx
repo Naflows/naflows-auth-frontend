@@ -33,7 +33,7 @@ const ConnectionSVG = () => {
 export default function ServicesInitPage() {
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [serviceData, setServiceData] = useState<ServicesCompleteBodyProps | null>(null);
-    const [servicesType, setServicesType] = useState<"services" | "connections">("services");
+    const [servicesType, setServicesType] = useState<"services" | "connections" | "discovery">("services");
 
     const data = useAccountData();
     const servicesData = data.servicesFetch;
@@ -161,9 +161,9 @@ export default function ServicesInitPage() {
                             </div>
                             <p>Services you're connected to. Manage their permissions and settings. <a href="/docs/user-guide/about-connections">Learn more</a>.</p>
                         </div>
-                        <button className="secondary-button inactive"
+                        <button className="secondary-button"
                             onClick={() => {
-                                window.location.href = "/account/services/new-connection";
+                                window.location.href = "/account/services/discovery";
                             }}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">

@@ -59,35 +59,47 @@ export default function TwoFALayout({
         );
     }
 
-    return (
-        <TwoFAContext.Provider value={{
-            user: userFetch
-        }}>
-            <div className="two-fa__module__layout">
+    if (userFetch) {
+        return (
+            <TwoFAContext.Provider value={{
+                user: userFetch
+            }}>
+                <div className="two-fa__module__layout">
 
-                <div className="right__section">
-                    <div className="header__content">
-                        <img src="https://naflows.com/public/assets/naflows_full_logotype.png" alt="Naflows Logo" className="naflows-logo" />
+                    <div className="right__section">
+                        <div className="header__content">
+                            <img src="https://naflows.com/public/assets/naflows_full_logotype.png" alt="Naflows Logo" className="naflows-logo" />
 
-                        <div className="header__informations">
-                            <h2>2FA Required</h2>
-                            <p>Naflows requires you to perform an additional step to execute your actions securely.</p>
+                            <div className="header__informations">
+                                <h2>2FA Required</h2>
+                                <p>Naflows requires you to perform an additional step to execute your actions securely.</p>
+                            </div>
+
                         </div>
 
-                    </div>
-
-                    <div className="connection__header">
-                        <img src={userFetch?.profile_picture || "/public/assets/default_avatar.png"} alt="User Avatar" />
-                        <div className="profile__informations">
-                            <span id="user-full-name">{userFetch?.first_name} {userFetch?.last_name}</span>
-                            <span id="user-email">{userFetch?.email}</span>
+                        <div className="connection__header">
+                            {
+                                (userFetch?.profile_picture ?
+                                    <img src={userFetch?.profile_picture || "/public/assets/default_avatar.png"} alt="User Avatar" />
+                                    :
+                                    <div className="default__avatar__placeholder">
+                                        {
+                                            // @ts-expect-error because first_name and last_name cannot be undefined as userFetch exists (see above)
+                                            userFetch?.first_name.charAt(0).toUpperCase()}{userFetch?.last_name.charAt(0).toUpperCase()
+                                        }
+                                    </div>)
+                            }
+                            <div className="profile__informations">
+                                <span id="user-full-name">{userFetch?.first_name} {userFetch?.last_name}</span>
+                                <span id="user-email">{userFetch?.email}</span>
+                            </div>
                         </div>
                     </div>
+                    <div className="left__section">
+                        {children}
+                    </div>
                 </div>
-                <div className="left__section">
-                    {children}
-                </div>
-            </div>
-        </TwoFAContext.Provider>
-    );
+            </TwoFAContext.Provider>
+        );
+    }
 }

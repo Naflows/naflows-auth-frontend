@@ -90,18 +90,18 @@ export default function TwoFAPage({
         }
     }, [user, paramsResolved.action, paramsResolved.serviceID]);
 
-
-    if (loading) {
-        return (<span className="small-loader" style={{
-            margin: "auto"
-        }}></span>)
-    } else if (noParam) {
+    if (noParam) {
         return (
             <div className="two-fa__module__info">
                 <h3>No action specified</h3>
-                <p>Please provide a valid action to perform 2FA operations.</p>
+                <button className="primary-button" onClick={() => window.location.href = "/account/"}>Go back to account</button>
             </div>
         );
+    } else if (loading) {
+            return (<span className="small-loader" style={{
+                margin: "auto"
+            }}></span>)
+        
     } else if (error) {
         return (
             <div className="two-fa__module__error">
@@ -131,8 +131,8 @@ export default function TwoFAPage({
                     <p>{TwoFAAction?.description}</p>
 
                     {paramsResolved.redirect && (
-                            <p className="redirect-note">After successful verification, you will be redirected to: <strong>{paramsResolved.redirect}</strong></p>
-                        )
+                        <p className="redirect-note">After successful verification, you will be redirected to: <strong>{paramsResolved.redirect}</strong></p>
+                    )
                     }
                 </div>
 
